@@ -106,7 +106,7 @@
 
 
 // javaScript basic fetch for open-meteo:
-const queryUrl = (`https://api.open-meteo.com/v1/forecast?forecast_days=16&timezone=EST&latitude=35&longitude=139&&timezoneMX&latitude=23&longitude=-102&hourly=temperature_2m,precipitation,rain&current_weather=true`);
+const queryUrl = (`https://api.open-meteo.com/v1/forecast?forecast_days=16&timezone=EST&latitude=35&longitude=139&timezone=UTC-6&latitude=23&longitude=-102&hourly=temperature_2m,precipitation,rain&current_weather=true`);
 function getApi(requestUrl) {
     fetch(requestUrl)
     .then(function (response){
@@ -117,3 +117,27 @@ function getApi(requestUrl) {
     });
 }
 getApi(queryUrl)
+
+
+// const weatherCodes = {
+//     0: "Clear sky",
+//     1: "Mainly clear",
+//     2: "Partly cloudy",
+//     3: "Overcast",
+//     61: "Rain Light",
+//     63: "Rain mid",
+//     65: "Rain heavy",
+    // Add more weather codes as needed
+// };
+
+// function getParams() {
+    // Get the search params out of the URL (i.e. `?q=london&format=photo`) and convert it to an array (i.e. ['?q=london', 'format=photo'])
+    // const searchParamsArr = document.location.forecast.split('&');
+  
+    // Get the query and format values
+//     const query = searchParamsArr[0].split('=').pop();
+//     const format = searchParamsArr[1].split('=').pop();
+  
+//     searchApi(query, format);
+//   }
+  
