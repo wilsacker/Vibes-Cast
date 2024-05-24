@@ -106,7 +106,8 @@
 
 
 // javaScript basic fetch for open-meteo:
-const queryUrl = (`https://api.open-meteo.com/v1/forecast?forecast_days=16&timezone=EST&latitude=35&longitude=139&timezone=UTC-6&latitude=23&longitude=-102&hourly=temperature_2m,precipitation,rain&current_weather=true`);
+
+const queryUrl = (`https://api.open-meteo.com/v1/forecast?forecast_days=16&timezone=auto&latitude=35&longitude=139&timezone=auto&latitude=48.864716&longitude=2.349014&hourly=temperature_2m,precipitation,rain&daily=weathercode&current_weather=true`);
 function getApi(requestUrl) {
     fetch(requestUrl)
     .then(function (response){
@@ -116,6 +117,7 @@ function getApi(requestUrl) {
         console.log(data);
     });
 }
+getApi(queryUrl)
 
 // getApi(queryUrl)
 // document.getElementById('button is-info').addEventListener('click', function() {
