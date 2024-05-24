@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,7 +8,6 @@
     <title>VibesCast</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/js/index.js">
 </head>
 
 <body>
@@ -37,10 +37,10 @@
                     <div class="notification is-primary">
                         <div class="field is-grouped">
                             <p class="control is-expanded">
-                                <input class="input" type="text" placeholder="Search Location">
+                                <input class="input" type="text" placeholder="Search Location" id="searchInput">
                             </p>
                             <p class="control">
-                                <button class="button is-info">
+                                <button class="button is-info" id="searchButton">
                                     Search
                                 </button>
                             </p>
@@ -48,63 +48,42 @@
                     </div>
                 </div>
                 <div class="column is-half">
-                    <nav class="panel">
-                        <p class="panel-heading">Repositories</p>
-                        <div class="panel-block">
-                            <p class="control has-icons-left">
-                                <input class="input" type="text" placeholder="Search" />
-                                <span class="icon is-left">
-                                    <i class="fas fa-search" aria-hidden="true"></i>
-                                </span>
-                            </p>
-                        </div>
+                    <nav class="panel" id="resultsPanel">
+                        <p class="panel-heading" type="text" placeholder="Search">Location Results</p>
                         <p class="panel-tabs">
-                            <a class="is-active">All</a>
-                            <a>Public</a>
-                            <a>Private</a>
-                            <a>Sources</a>
-                            <a>Forks</a>
+                            <a class="is-active">Vibe</a>
+                            <a>Forecast</a>
                         </p>
-                        <a class="panel-block is-active">
+                        <a class="panel-block">
                             <span class="panel-icon">
                                 <i class="fas fa-book" aria-hidden="true"></i>
                             </span>
-                            bulma
+                            Playlist Result option #1
                         </a>
                         <a class="panel-block">
                             <span class="panel-icon">
                                 <i class="fas fa-book" aria-hidden="true"></i>
                             </span>
-                            marksheet
+                            Playlist Result option #2
                         </a>
                         <a class="panel-block">
                             <span class="panel-icon">
                                 <i class="fas fa-book" aria-hidden="true"></i>
                             </span>
-                            minireset.css
-                        </a>
-                        <a class="panel-block">
-                            <span class="panel-icon">
-                                <i class="fas fa-book" aria-hidden="true"></i>
-                            </span>
-                            jgthms.github.io
+                            Playlist Result option #3
                         </a>
                         <a class="panel-block">
                             <span class="panel-icon">
                                 <i class="fas fa-code-branch" aria-hidden="true"></i>
                             </span>
-                            daniellowtw/infboard
+                            Playlist Result option #4
                         </a>
                         <a class="panel-block">
                             <span class="panel-icon">
                                 <i class="fas fa-code-branch" aria-hidden="true"></i>
                             </span>
-                            mojs
+                            Playlist Result option #5
                         </a>
-                        <label class="panel-block">
-                            <input type="checkbox" />
-                            remember me
-                        </label>
                         <div class="panel-block">
                             <button class="button is-link is-outlined is-fullwidth">
                                 Reset all filters
@@ -115,6 +94,8 @@
             </div>
         </div>
     </section>
+
+    <script src="assets/js/index.js"></script>
 </body>
 
 </html>
