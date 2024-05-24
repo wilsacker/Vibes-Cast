@@ -1,101 +1,100 @@
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>VibesCast</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
-    <link rel="stylesheet" href="assets/css/style.css">
-</head>
-
-<body>
-    <nav class="navbar" role="navigation" aria-label="main navigation">
-        <div class="navbar-brand">
-            <a class="navbar-item" href="https://wilsacker.github.io/Vibes-Cast/">
-                <h1 class="title">
-                    VibesCast🎧
-                </h1>
-            </a>
-            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-            </a>
-        </div>
-    </nav>
-
-    <section class="section">
-        <div class="container">
-            <p class="subtitle">
-                Playlist Recommendations For Your Weather Forecast 🤘
-            </p>
-            <div class="columns">
-                <div class="column is-half">
-                    <div class="notification is-primary">
-                        <div class="field is-grouped">
-                            <p class="control is-expanded">
-                                <input class="input" type="text" placeholder="Search Location" id="searchInput">
-                            </p>
-                            <p class="control">
-                                <button class="button is-info" id="searchButton">
-                                    Search
-                                </button>
-                            </p>
+    <!DOCTYPE html>
+    <html lang="en">
+    
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>VibesCast</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
+        <link rel="stylesheet" href="assets/css/style.css">
+    </head>
+    
+    <body>
+        <nav class="navbar" role="navigation" aria-label="main navigation">
+            <div class="navbar-brand">
+                <a class="navbar-item" href="https://wilsacker.github.io/Vibes-Cast/">
+                    <h1 class="title">
+                        VibesCast🎧
+                    </h1>
+                </a>
+                <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </a>
+            </div>
+        </nav>
+    
+        <section class="section">
+            <div class="container">
+                <p class="subtitle">
+                    Playlist Recommendations For Your Weather Forecast 🤘
+                </p>
+                <div class="columns">
+                    <div class="column is-half">
+                        <div class="notification is-primary">
+                            <div class="field is-grouped">
+                                <p class="control is-expanded">
+                                    <input class="input" type="text" placeholder="Search Location" id="searchInput">
+                                </p>
+                                <p class="control">
+                                    <button class="button is-info" id="searchButton">
+                                        Search
+                                    </button>
+                                </p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="column is-half">
-                    <nav class="panel" id="resultsPanel">
-                        <p class="panel-heading" type="text" placeholder="Search">Location Results</p>
-                        <p class="panel-tabs">
-                            <a class="is-active">Vibe</a>
-                            <a>Forecast</a>
-                        </p>
-                        <a class="panel-block">
-                            <span class="panel-icon">
-                                <i class="fas fa-book" aria-hidden="true"></i>
-                            </span>
-                            Playlist Result option #1
-                        </a>
-                        <a class="panel-block">
-                            <span class="panel-icon">
-                                <i class="fas fa-book" aria-hidden="true"></i>
-                            </span>
-                            Playlist Result option #2
-                        </a>
-                        <a class="panel-block">
-                            <span class="panel-icon">
-                                <i class="fas fa-book" aria-hidden="true"></i>
-                            </span>
-                            Playlist Result option #3
-                        </a>
-                        <a class="panel-block">
-                            <span class="panel-icon">
-                                <i class="fas fa-code-branch" aria-hidden="true"></i>
-                            </span>
-                            Playlist Result option #4
-                        </a>
-                        <a class="panel-block">
-                            <span class="panel-icon">
-                                <i class="fas fa-code-branch" aria-hidden="true"></i>
-                            </span>
-                            Playlist Result option #5
-                        </a>
-                        <div class="panel-block">
-                            <button class="button is-link is-outlined is-fullwidth">
-                                Reset all filters
-                            </button>
-                        </div>
-                    </nav>
+                    <div class="column is-half">
+                        <nav class="panel" id="resultsPanel">
+                            <p class="panel-heading" type="text" placeholder="Search">Location Results</p>
+                            <p class="panel-tabs">
+                                <a class="is-active">Vibe</a>
+                                <a>Forecast</a>
+                            </p>
+                            <a class="panel-block">
+                                <span class="panel-icon">
+                                    <i class="fas fa-book" aria-hidden="true"></i>
+                                </span>
+                                Playlist Result option #1
+                            </a>
+                            <a class="panel-block">
+                                <span class="panel-icon">
+                                    <i class="fas fa-book" aria-hidden="true"></i>
+                                </span>
+                                Playlist Result option #2
+                            </a>
+                            <a class="panel-block">
+                                <span class="panel-icon">
+                                    <i class="fas fa-book" aria-hidden="true"></i>
+                                </span>
+                                Playlist Result option #3
+                            </a>
+                            <a class="panel-block">
+                                <span class="panel-icon">
+                                    <i class="fas fa-code-branch" aria-hidden="true"></i>
+                                </span>
+                                Playlist Result option #4
+                            </a>
+                            <a class="panel-block">
+                                <span class="panel-icon">
+                                    <i class="fas fa-code-branch" aria-hidden="true"></i>
+                                </span>
+                                Playlist Result option #5
+                            </a>
+                            <div class="panel-block">
+                                <button class="button is-link is-outlined is-fullwidth">
+                                    Reset all filters
+                                </button>
+                            </div>
+                        </nav>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <script src="assets/js/index.js"></script>
-</body>
-
-</html>
+        </section>
+    
+        <script src="./assets/js/index.js"></script>
+    </body>
+    
+    </html>
