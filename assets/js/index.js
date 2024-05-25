@@ -106,22 +106,105 @@
 
 
 // javaScript basic fetch for open-meteo:
-const queryUrl = (`https://api.open-meteo.com/v1/forecast?forecast_days=16&timezone=EST&latitude=35&longitude=139&timezone=UTC-6&latitude=23&longitude=-102&hourly=temperature_2m,precipitation,rain&current_weather=true`);
-function getApi(requestUrl) {
-    fetch(requestUrl)
-    .then(function (response){
-        return response.json();
-    })
-    .then(function(data){
-        console.log(data);
-    });
-}
+
+// const queryUrl = (`https://api.open-meteo.com/v1/forecast?forecast_days=16&timezone=auto&latitude=35&longitude=139&timezone=auto&latitude=48.864716&longitude=2.349014&hourly=temperature_2m,precipitation,rain&daily=weathercode&current_weather=true`);
+// function getApi(requestUrl) {
+//     fetch(requestUrl)
+//     .then(function (response){
+//         return response.json();
+//     })
+//     .then(function(data){
+//         console.log(data);
+//     });
+// }
+// getApi(queryUrl)
 
 // getApi(queryUrl)
-// document.getElementById('button is-info').addEventListener('click', function() {
-//     const cityName = document.getElementById('cityInput').value;
-//     getCityCoordinates(cityName);
-// });
+
+// event listener which collects the value inputed. cityName as a const to be sent as a parameter for the getCityCoordinates function.
+document.getElementById('searchButton').addEventListener('click', function() {
+    const cityName = document.getElementById('cityInput').value;
+    getCityCoordinates(cityName);
+});
+
+// this function is using  Nominatim API to get latitudes and longitudes based on a city search. we get the const values lat,lon from the data.
+function getCityCoordinates(city) {
+    const apiUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${city}`;
+
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            if (data.length > 0) {
+                const latitude = data[0].lat;
+                const longitude = data[0].lon;
+                getWeatherData(latitude, longitude);
+            } else {
+                document.getElementById('weatherResults').innerHTML = 'City not found.';
+            }
+        })
+        .catch(error => console.error('Error fetching city coordinates:', error));
+}
+// this function uses the lat,lon values as parameters to fetch weather data in Open-meteo api. it gets the response and 
+// converts it to json then it is passed to the following function as a parameter
+function getWeatherData(lat, lon) {
+    const apiUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=temperature_2m_max,temperature_2m_min,precipitation_sum,weathercode,sunrise,sunset&timezone=auto`;
+
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            displayWeatherData(data);
+            console.log(data)
+        })
+        .catch(error => console.error('Error fetching weather data:', error));
+
+        
+  
+}
+
+// this function takes the default value unit celsius in open-meteo api and converts it to farenheit unit
+function convertCelsiusToFahrenheit(celsius) {
+    return (celsius * 9/5) + 32;
+}
+
+// a function to display the data fetched  and filtered by the 'daily' parameter. it should be reworked to create a card for each day/forecast. 
+// the "weather code" value from the "daily" parameter should be utilized for pairing with Spotify api playlist values.
+function displayWeatherData(data) {
+    const weatherResults = document.getElementById('weatherResults');
+    weatherResults.innerHTML = '';
+
+    // local storage for the 'daily' values.
+    localStorage.setItem('cityWeather', JSON.stringify(data.daily));
+    
+    const daily = data.daily;
+    for (let i = 0; i < daily.time.length; i++) {
+        const date = daily.time[i];
+        const maxTempC = daily.temperature_2m_max[i];
+        const minTempC = daily.temperature_2m_min[i];
+        const maxTempF = convertCelsiusToFahrenheit(maxTempC);
+        const minTempF = convertCelsiusToFahrenheit(minTempC);
+        const weatherCode = daily.weathercode[i];
+        const sunrise = daily.sunrise[i];
+        const sunset = daily.sunset[i];
+
+        // the temperature values are rounded to one decimal place with '.toFixed(1)'. This avoids displaying too many decimal places, which can be unnecessary 
+        // and clutter the display.
+        const weatherInfo = `
+            <div>
+                <h3>${date}</h3>
+                <p>Max Temp: ${maxTempF.toFixed(1)}°F</p>
+                <p>Min Temp: ${minTempF.toFixed(1)}°F</p>
+                <p>Weather Code: ${weatherCode}</p>
+                <p>Sunrise: ${sunrise}</p>
+                <p>Sunset: ${sunset}</p>
+                <p>===========</p>
+            </div>
+        `;
+        weatherResults.innerHTML += weatherInfo;
+
+        // localStorage.setItem('cityWeather', JSON.stringify(data.daily));
+    }
+}
+
 
 
 // const weatherCodes = {
