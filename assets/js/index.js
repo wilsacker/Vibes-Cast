@@ -228,3 +228,18 @@ function displayWeatherData(data) {
   
 //     searchApi(query, format);
 //   }
+
+document.addEventListener('DOMContentLoaded', function () {
+    // Get the navbar burger element
+    const navbarBurger = document.getElementById('navbarBurger');
+
+    // Get the dropdown menu element
+    const dropdownMenu = document.getElementById('dropdownMenu');
+
+    // Add a click event listener to the navbar burger
+    navbarBurger.addEventListener('click', function () {
+        // Toggle the 'is-active' class on both the navbar-burger and the dropdown menu
+        navbarBurger.classList.toggle('is-active');
+        dropdownMenu.classList.toggle('is-active');
+    });
+});
