@@ -6,16 +6,17 @@
     justify-content: space-between;
 }
 
-  
+
 
 @media screen and (min-width: 1024px) {
-    
+   
     .navbar-burger {
          display: block !important;
          position: fixed;
          right: 20px;
          display: flex;
          flex-wrap: wrap;
+    
     }
 }
 
