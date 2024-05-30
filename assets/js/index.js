@@ -247,7 +247,7 @@ document.addEventListener('DOMContentLoaded', function () {
 // An idea for API Spotify
 
 // These will be for the option buttons near the website title
-const btn = document.querySelectorAll(".btn-element");
+const dropdownMenu = document.querySelectorAll(".btn-element");
 const searchBtn = document.querySelector("#btn");
 const searchInput = document.querySelector("#input-element");
 const apiKey = "jegeigudi9237t378y39jbedkuge9yw9";
