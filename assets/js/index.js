@@ -325,14 +325,13 @@ const APIController = (function() {
             return _getGenres(token);
         },
         getPlaylistByGenre(token, genreId) {
-            return _getPlaylistByGenre(token, genreId); {  
+            return _getPlaylistByGenre(token, genreId); 
         },
         getTracks(token, tracksEndPoint) {
             return _getTracks(token, tracksEndPoint);
-        }
+        },
         getTrack(token, tracksEndPoint) {
             return _getTrack(token, tracksEndPoint);
         }
     }
 })();
-
