@@ -204,14 +204,14 @@ function displayWeatherData(data) {
 
         // the temperature values are rounded to one decimal place with '.toFixed(1)'. This avoids displaying too many decimal places, which can be unnecessary 
         // and clutter the display.
-        const weatherCard = document.createElement('div');
-        weatherCard.className = 'weather-card';
+        const weatherCard = document.createElement('a');
+        weatherCard.className = 'weather-card','panel-block', 'panel-icon' ;
         weatherCard.innerHTML = `
             <h3><strong>${date}</strong></h3>
             <p><strong>Max: ${maxTempF.toFixed(1)}°F</strong></p>
             <p><strong>Min: ${minTempF.toFixed(1)}°F</strong></p>
             <p><strong>Weather: ${weatherIcon}</strong></p>
-            
+            <br>
         `;
         // <p>Sunrise: ${sunrise}</p>
         //     <p>Sunset: ${sunset}</p>
