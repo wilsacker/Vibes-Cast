@@ -1,6 +1,6 @@
 .title {
     border: 25px;
-    padding: 25px 25px 25px 35px  ;
+    padding: 25px 25px 0px 35px  ;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
