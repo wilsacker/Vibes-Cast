@@ -62,11 +62,12 @@
                         <!-- is half -->
                       <!-- changed id to weatherResults -->
                         <section class="panel">
-                            <p class="panel-heading" type="text" placeholder="Search">Location Results</p>
+                            <p class="panel-heading">Location Results</p>
                             <p class="panel-tabs">
-                                <a class="is-active">Vibe</a>
-                                <a id=weatherResults>Forecast</a>
+                                <a id="forecastTab" class="is-active">Forecast</a>
+                                <a id="vibeTab">Vibe</a>
                             </p>
+                            <div id="vibeResults">
                             <a class="panel-block">
                                 <span class="panel-icon">
                                     <i class="fas fa-book" aria-hidden="true"></i>
@@ -91,13 +92,51 @@
                                 </span>
                                 Playlist Result option #4
                             </a>
-                            <a class="panel-block">
-                                <span class="panel-icon">
-                                    <i class="fas fa-code-branch" aria-hidden="true"></i>
-                                </span>
-                                Playlist Result option #5
-                            </a>
-                            
+                            </div>
+                            <div id=weatherResults style="display: none;">
+                                <a class="panel-block">
+                                    <span class="panel-icon">
+                                        <i class="fas fa-cloud" aria-hidden="true"></i>
+                                    </span>
+                                    Weather Forecast option #1
+                                </a>
+                                <a class="panel-block">
+                                    <span class="panel-icon">
+                                        <i class="fas fa-cloud" aria-hidden="true"></i>
+                                    </span>
+                                    Weather Forecast option #2
+                                </a>
+                                <a class="panel-block">
+                                    <span class="panel-icon">
+                                        <i class="fas fa-cloud" aria-hidden="true"></i>
+                                    </span>
+                                    Weather Forecast option #3
+                                </a>
+                                <a class="panel-block">
+                                    <span class="panel-icon">
+                                        <i class="fas fa-cloud" aria-hidden="true"></i>
+                                    </span>
+                                    Weather Forecast option #4
+                                </a>
+                                <a class="panel-block">
+                                    <span class="panel-icon">
+                                        <i class="fas fa-cloud" aria-hidden="true"></i>
+                                    </span>
+                                    Weather Forecast option #5
+                                </a>
+                                <a class="panel-block">
+                                    <span class="panel-icon">
+                                        <i class="fas fa-cloud" aria-hidden="true"></i>
+                                    </span>
+                                    Weather Forecast option #6
+                                </a>
+                                <a class="panel-block">
+                                    <span class="panel-icon">
+                                        <i class="fas fa-cloud" aria-hidden="true"></i>
+                                    </span>
+                                    Weather Forecast option #7
+                                </a>
+                            </div>
                             <div class="panel-block">
                                 <button class="button is-link is-outlined is-fullwidth">
                                     Reset all filters
