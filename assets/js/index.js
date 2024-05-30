@@ -188,22 +188,28 @@ function displayWeatherData(data) {
 
         // the temperature values are rounded to one decimal place with '.toFixed(1)'. This avoids displaying too many decimal places, which can be unnecessary 
         // and clutter the display.
-        const weatherInfo = `
-            <div>
-                <h3>${date}</h3>
-                <p>Max Temp: ${maxTempF.toFixed(1)}°F</p>
-                <p>Min Temp: ${minTempF.toFixed(1)}°F</p>
-                <p>Weather Code: ${weatherCode}</p>
-                <p>Sunrise: ${sunrise}</p>
-                <p>Sunset: ${sunset}</p>
-                <p>===========</p>
-            </div>
+        const weatherCard = document.createElement('div');
+        weatherCard.className = 'weather-card';
+        weatherCard.innerHTML = `
+            <h3>${date}</h3>
+            <p>Max Temp: ${maxTempF.toFixed(1)}°F</p>
+            <p>Min Temp: ${minTempF.toFixed(1)}°F</p>
+            <p>Weather Code: ${weatherCode}</p>
+            <p>Sunrise: ${sunrise}</p>
+            <p>Sunset: ${sunset}</p>
         `;
-        weatherResults.innerHTML += weatherInfo;
-
-        // localStorage.setItem('cityWeather', JSON.stringify(data.daily));
+        
+        weatherResults.appendChild(weatherCard);
     }
 }
+        
+        //  
+
+        // localStorage.setItem('cityWeather', JSON.stringify(data.daily));
+//     }
+// }
+
+
 
 
 
@@ -246,30 +252,87 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // An idea for API Spotify
 
-// These will be for the option buttons near the website title
-const dropdownMenu = document.querySelectorAll(".btn-element");
-const searchBtn = document.querySelector("#btn");
-const searchInput = document.querySelector("#input-element");
-const apiKey = "jegeigudi9237t378y39jbedkuge9yw9";
+const APIController = (function() {
+    const clientId = "";
+    const clientSecret = "";
 
-// When the Spotify API is up, the genre should be connected to the button
-btn.forEach(function(item){
-    item.addEventListener("click", getGenre)
-});
+    // private methods
+    const _getToken = async () => {
+        const result = await fetch('https://spotify.com/?apitoken', {
+            method: 'POST',
+            headers: {
+                'Content-Type' : 'application/x-www-form-urlencoded',
+                'Authorization' : 'Basic' + btoa(clientId + ':' + clientSecret)
+            },
+            body: 'grant_type=client_credentials'
+        });
 
-searchBtn.addEventListener("click", searchGenre)
+        const data = await result.json();
+        return data.access_token;
+    }
 
-function getGenre (event) {
-    let element = event.target.textContent;
-    let queryUrl = "https://spotify.com/?q=" + element + "/&apiKey=" + apiKey
-    console.log(queryUrl)
-};
+    const _getGenres = async (token) => {
+        const result = await fetch('https://spotify.com/?browse', {
+            method: 'GET',
+            headers: { 'Authorization' : 'Bearer' + token}
+        });
 
-function searchGenre () {
-    const searchValue = searchInput.value;
-    let queryUrl = "https://spotify.com/?q=" + searchValue + "/&apiKey=" + apiKey
-    console.log(queryUrl);
-}
+        const data = await result.json();
+        return data.categories.items;
+    }
 
-//
+    const _getPlaylistByGenre = async (token, genreId) => {
+        const limit = 10;
+
+        const result = await fetch('https://spotify.com/?browse/playlist', {
+            method: 'GET',
+            headers: { 'Authorization' : 'Bearer' + token}
+        });
+
+        const data = await resultjson();
+        return data.categories.items;
+    }
+
+    const _getTracks = async (token, tracksEndPoint) => {
+        const limit = 10;
+
+        const result = await fetch('${tracksEndPoint}?limit=${limit}', {
+            method: 'GET',
+            headers: { 'Authorization' : 'Bearer' + token}
+
+        });
+
+        const data = await resultjson();
+        return data.items;
+    }
+
+    const _getTrack = async (token, tracksEndPoint) => {
+        
+        const result = await fetch('${tracksEndPoint}', {
+            method: 'GET',
+            headers: { 'Authorization' : 'Bearer' + token}
+        });
+
+        const data = await resultjson();
+        return data;
+    }
+
+    return {
+        getToken() {
+            return _getToken();
+        },
+        getGenres(token) {
+            return _getGenres(token);
+        },
+        getPlaylistByGenre(token, genreId) {
+            return _getPlaylistByGenre(token, genreId); {  
+        },
+        getTracks(token, tracksEndPoint) {
+            return _getTracks(token, tracksEndPoint);
+        }
+        getTrack(token, tracksEndPoint) {
+            return _getTrack(token, tracksEndPoint);
+        }
+    }
+})();
 
