@@ -122,10 +122,6 @@
 // getApi(queryUrl)
 
 // event listener which collects the value inputed. cityName as a const to be sent as a parameter for the getCityCoordinates function.
-document.getElementById('searchButton').addEventListener('click', function() {
-    const cityName = document.getElementById('cityInput').value;
-    getCityCoordinates(cityName);
-});
 
 // this function is using  Nominatim API to get latitudes and longitudes based on a city search. we get the const values lat,lon from the data.
 function getCityCoordinates(city) {
@@ -248,4 +244,15 @@ document.addEventListener('DOMContentLoaded', function () {
         navbarBurger.classList.toggle('is-active');
         dropdownMenu.classList.toggle('is-active');
     });
+});
+
+// Search City
+document.getElementById('searchButton').addEventListener('click', function() {
+    const cityName = document.getElementById('cityInput').value;
+    getCityCoordinates(cityName);
+    const searchLocation = document.getElementById(`resultsPanel`);
+    const panelLocation = document.getElementById(`resultsPanel`);
+    panelLocation.classList.remove("hidden");
+    panelLocation.classList("is-half");
+    searchLocation.classlist("is-half");
 });
