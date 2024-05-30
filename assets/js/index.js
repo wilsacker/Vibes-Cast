@@ -188,22 +188,28 @@ function displayWeatherData(data) {
 
         // the temperature values are rounded to one decimal place with '.toFixed(1)'. This avoids displaying too many decimal places, which can be unnecessary 
         // and clutter the display.
-        const weatherInfo = `
-            <div>
-                <h3>${date}</h3>
-                <p>Max Temp: ${maxTempF.toFixed(1)}°F</p>
-                <p>Min Temp: ${minTempF.toFixed(1)}°F</p>
-                <p>Weather Code: ${weatherCode}</p>
-                <p>Sunrise: ${sunrise}</p>
-                <p>Sunset: ${sunset}</p>
-                <p>===========</p>
-            </div>
+        const weatherCard = document.createElement('div');
+        weatherCard.className = 'weather-card';
+        weatherCard.innerHTML = `
+            <h3>${date}</h3>
+            <p>Max Temp: ${maxTempF.toFixed(1)}°F</p>
+            <p>Min Temp: ${minTempF.toFixed(1)}°F</p>
+            <p>Weather Code: ${weatherCode}</p>
+            <p>Sunrise: ${sunrise}</p>
+            <p>Sunset: ${sunset}</p>
         `;
-        weatherResults.innerHTML += weatherInfo;
-
-        // localStorage.setItem('cityWeather', JSON.stringify(data.daily));
+        
+        weatherResults.appendChild(weatherCard);
     }
 }
+        
+        //  
+
+        // localStorage.setItem('cityWeather', JSON.stringify(data.daily));
+//     }
+// }
+
+
 
 
 
