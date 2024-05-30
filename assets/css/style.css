@@ -1,8 +1,7 @@
 .title {
     border: 25px;
-    padding: 25px 25px 0px 35px  ;
+    padding: 10px 10px 10px 10px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
 }
-
