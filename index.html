@@ -48,12 +48,13 @@
                     </div>
                     <div class="column is-half">
                       <!-- changed id to weatherResults -->
-                        <nav class="panel" id="resultsPanel">
-                            <p class="panel-heading" type="text" placeholder="Search">Location Results</p>
+                        <section class="panel">
+                            <p class="panel-heading">Location Results</p>
                             <p class="panel-tabs">
                                 <a class="is-active">Vibe</a>
-                                <a>Forecast</a>
+                                <a id=weatherResults>Forecast</a>
                             </p>
+                            <div id="vibeResults">
                             <a class="panel-block">
                                 <span class="panel-icon">
                                     <i class="fas fa-book" aria-hidden="true"></i>
@@ -84,6 +85,7 @@
                                 </span>
                                 Playlist Result option #5
                             </a>
+                            
                             <div class="panel-block">
                                 <button class="button is-link is-outlined is-fullwidth">
                                     Reset all filters
