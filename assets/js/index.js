@@ -250,13 +250,12 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-// An idea for API Spotify
+// API Spotify without HTML
 
 const APIController = (function() {
     const clientId = "";
     const clientSecret = "";
 
-    // private methods
     const _getToken = async () => {
         const result = await fetch('https://spotify.com/?apitoken', {
             method: 'POST',
@@ -335,3 +334,4 @@ const APIController = (function() {
         }
     }
 })();
+
