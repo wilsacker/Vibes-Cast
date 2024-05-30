@@ -36,13 +36,14 @@
             </div>
         </nav>
     
-        <section class="section">
+        <main class="section">
             <div class="container">
                 <p class="subtitle">
                     Playlist Recommendations For Your Weather Forecast 🤘
                 </p>
                 <div class="columns">
-                    <div class="column is-half">
+                    <div class="column" id="searchPanel">
+                        <!-- is half -->
                         <div class="notification is-primary">
                             <div class="field is-grouped">
                                 <p class="control is-expanded">
@@ -57,9 +58,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="column is-half">
+                    <div class="column hidden" id="resultsPanel">
+                        <!-- is half -->
                       <!-- changed id to weatherResults -->
-                        <nav class="panel" id="resultsPanel">
+                        <section class="panel">
                             <p class="panel-heading" type="text" placeholder="Search">Location Results</p>
                             <p class="panel-tabs">
                                 <a class="is-active">Vibe</a>
@@ -101,11 +103,11 @@
                                     Reset all filters
                                 </button>
                             </div>
-                        </nav>
+                        </section>
                     </div>
                 </div>
             </div>
-        </section>
+        </main>
     
         <script src="./assets/js/index.js"></script>
     </body>
