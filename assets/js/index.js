@@ -189,7 +189,7 @@ function displayWeatherData(data) {
     
     
     const daily = data.daily;
-    const weatherIcon = getWeatherIcon(data.weathercode);
+    // const weatherIcon = getWeatherIcon(data.weathercode);
     for (let i = 0; i < daily.time.length; i++) {
         const date = daily.time[i];
         const maxTempC = daily.temperature_2m_max[i];
@@ -200,7 +200,7 @@ function displayWeatherData(data) {
         const sunrise = daily.sunrise[i];
         const sunset = daily.sunset[i];
 
-        // const weatherIcon = getWeatherIcon(dayForecast.weathercode);
+        const weatherIcon = getWeatherIcon(dayForecast.weathercode);
 
         // the temperature values are rounded to one decimal place with '.toFixed(1)'. This avoids displaying too many decimal places, which can be unnecessary 
         // and clutter the display.
