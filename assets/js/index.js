@@ -271,4 +271,5 @@ function searchGenre () {
     console.log(queryUrl);
 }
 
-// local storage for 
+//
+
