@@ -243,3 +243,32 @@ document.addEventListener('DOMContentLoaded', function () {
         dropdownMenu.classList.toggle('is-active');
     });
 });
+
+// An idea for API Spotify
+
+// These will be for the option buttons near the website title
+const btn = document.querySelectorAll(".btn-element");
+const searchBtn = document.querySelector("#btn");
+const searchInput = document.querySelector("#input-element");
+const apiKey = "jegeigudi9237t378y39jbedkuge9yw9";
+
+// When the Spotify API is up, the genre should be connected to the button
+btn.forEach(function(item){
+    item.addEventListener("click", getGenre)
+});
+
+searchBtn.addEventListener("click", searchGenre)
+
+function getGenre (event) {
+    let element = event.target.textContent;
+    let queryUrl = "https://spotify.com/?q=" + element + "/&apiKey=" + apiKey
+    console.log(queryUrl)
+};
+
+function searchGenre () {
+    const searchValue = searchInput.value;
+    let queryUrl = "https://spotify.com/?q=" + searchValue + "/&apiKey=" + apiKey
+    console.log(queryUrl);
+}
+
+// local storage for 
