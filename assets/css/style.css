@@ -6,5 +6,6 @@
   color: whitesmoke;
   display: flex;
   justify-content:space-evenly;
+  min-width: min-content;
   
 }
