@@ -252,10 +252,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // API Spotify without HTML
 
+// You get clientId and clientSecret during registation
 const APIController = (function() {
     const clientId = "";
     const clientSecret = "";
 
+    // Each https is from the Spotify API URL
     const _getToken = async () => {
         const result = await fetch('https://spotify.com/?apitoken', {
             method: 'POST',
@@ -271,7 +273,7 @@ const APIController = (function() {
     }
 
     const _getGenres = async (token) => {
-        const result = await fetch('https://spotify.com/?browse', {
+        const result = await fetch('https://spotify.com/v1/browse/categories?', {
             method: 'GET',
             headers: { 'Authorization' : 'Bearer' + token}
         });
