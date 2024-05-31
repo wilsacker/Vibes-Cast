@@ -1,3 +1,8 @@
+const vibeTab = document.getElementById('vibeTab');
+    const forecastTab = document.getElementById('forecastTab');
+    const vibeResults = document.getElementById('vibeResults');
+    const forecastResults = document.getElementById('weatherResults');
+
 // Open-meteo Starting guide
 
 // https://api.open-meteo.com/v1/gfs?latitude=52.52&longitude=13.41&hourly=temperature_2m
@@ -342,31 +347,33 @@ const APIController = (function() {
 document.getElementById('searchButton').addEventListener('click', function() {
     const cityName = document.getElementById('cityInput').value;
     getCityCoordinates(cityName);
-    const searchLocation = document.getElementById(`resultsPanel`);
+    const searchLocation = document.getElementById(`searchPanel`);
     const panelLocation = document.getElementById(`resultsPanel`);
     panelLocation.classList.remove("hidden");
-    panelLocation.classList("is-half");
-    searchLocation.classlist("is-half");
+    panelLocation.classList.add("is-half");
+    searchLocation.classList.add("is-half");
+    forecastResults.classList.remove('hidden');
+    vibeResults.classList.add('hidden')
+    forecastTab.classList.add('is-active');
+    vibeTab.classList.remove('is-active')
 });
 
 // Results tabs for Vibe and Forecast
 document.addEventListener('DOMContentLoaded', () => {
-    const vibeTab = document.getElementById('vibeTab');
-    const forecastTab = document.getElementById('forecastTab');
-    const vibeResults = document.getElementById('vibeResults');
-    const forecastResults = document.getElementById('forecastResults');
 
     vibeTab.addEventListener('click', () => {
+        vibeResults.classList.remove('hidden');
         vibeTab.classList.add('is-active');
+        forecastResults.classList.add('hidden');
         forecastTab.classList.remove('is-active');
-        vibeResults.style.display = 'block';
-        forecastResults.style.display = 'none';
     });
 
     forecastTab.addEventListener('click', () => {
+        forecastResults.classList.remove('hidden');
         forecastTab.classList.add('is-active');
+        vibeResults.classList.add('hidden');
         vibeTab.classList.remove('is-active');
-        vibeResults.style.display = 'none';
-        forecastResults.style.display = 'block';
     });
 });
+
+// Create function to create panels. Needs whatever object going into the Panel //
