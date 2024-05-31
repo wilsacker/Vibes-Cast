@@ -251,13 +251,14 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 // API Spotify without HTML
+// This is for the person who will activate the API Spotify on their account
 
 // You get clientId and clientSecret during registation
 const APIController = (function() {
     const clientId = "";
     const clientSecret = "";
 
-    // Each https is from the Spotify API URL
+    // Each https is from the Spotify API URL. The token will give us actual playlists
     const _getToken = async () => {
         const result = await fetch('https://spotify.com/?apitoken', {
             method: 'POST',
@@ -271,7 +272,8 @@ const APIController = (function() {
         const data = await result.json();
         return data.access_token;
     }
-
+    
+    // This gives us a list of catergories
     const _getGenres = async (token) => {
         const result = await fetch('https://spotify.com/v1/browse/categories?', {
             method: 'GET',
@@ -282,6 +284,7 @@ const APIController = (function() {
         return data.categories.items;
     }
 
+    // This gives us a list of catergories playlist
     const _getPlaylistByGenre = async (token, genreId) => {
         const limit = 10;
 
@@ -294,6 +297,7 @@ const APIController = (function() {
         return data.categories.items;
     }
 
+    // This gives us items of a playlist
     const _getTracks = async (token, tracksEndPoint) => {
         const limit = 10;
 
@@ -307,6 +311,7 @@ const APIController = (function() {
         return data.items;
     }
 
+    // This gives us a track
     const _getTrack = async (token, tracksEndPoint) => {
         
         const result = await fetch('${tracksEndPoint}', {
