@@ -167,6 +167,7 @@ function convertCelsiusToFahrenheit(celsius) {
 }
 
 function getWeatherIcon(weathercode) {
+    // weathercode = Number(weathercode);
     if (weathercode === 0 || weathercode === 1) {
         return '☀️'; // Sun icon for clear or mainly clear sky
     } else if (weathercode === 2 || weathercode === 3 || weathercode === 45) {
@@ -174,22 +175,27 @@ function getWeatherIcon(weathercode) {
     } else if ([51, 53, 55, 61, 63, 65, 66, 67, 81,82, 85, 86, 95, 96, 99].includes(weathercode)) {
         return '🌧️'; // Rain icon for various rain and drizzle conditions
     } else {
+        console.warn(`Unknown weathercode: ${weathercode}`); // Warn if the weathercode is not recognized
         return '❓'; // Default icon for any other conditions
+        
     }
 }
 
 // a function to display the data fetched  and filtered by the 'daily' parameter. it should be reworked to create a card for each day/forecast. 
 // the "weather code" value from the "daily" parameter should be utilized for pairing with Spotify api playlist values.
 function displayWeatherData(data) {
+    
     const weatherResults = document.getElementById('weatherResults');
     weatherResults.innerHTML = '';
 
     // local storage for the 'daily' values.
-    localStorage.setItem('cityWeather', JSON.stringify(data.daily));
+    localStorage.setItem('cityWeather', JSON.stringify(data));
     
     
     const daily = data.daily;
-    // const weatherIcon = getWeatherIcon(data.weathercode);
+    
+    const weatherIcon = getWeatherIcon(data.weathercode);
+    
     for (let i = 0; i < daily.time.length; i++) {
         const date = daily.time[i];
         const maxTempC = daily.temperature_2m_max[i];
@@ -199,12 +205,14 @@ function displayWeatherData(data) {
         const weatherCode = daily.weathercode[i];
         const sunrise = daily.sunrise[i];
         const sunset = daily.sunset[i];
+        // weatherCode = Number(weatherCode);
+        
 
-        const weatherIcon = getWeatherIcon(dayForecast.weathercode);
+        // const weatherIcon = getWeatherIcon(dayForecast.weathercode);
 
         // the temperature values are rounded to one decimal place with '.toFixed(1)'. This avoids displaying too many decimal places, which can be unnecessary 
         // and clutter the display.
-        const weatherCard = document.createElement('a');
+        const weatherCard = document.createElement('div');
         weatherCard.className = 'weather-card','panel-block', 'panel-icon' ;
         weatherCard.innerHTML = `
             <h3><strong>${date}</strong></h3>
