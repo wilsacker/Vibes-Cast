@@ -122,10 +122,6 @@
 // getApi(queryUrl)
 
 // event listener which collects the value inputed. cityName as a const to be sent as a parameter for the getCityCoordinates function.
-document.getElementById('searchButton').addEventListener('click', function() {
-    const cityName = document.getElementById('cityInput').value;
-    getCityCoordinates(cityName);
-});
 
 // this function is using  Nominatim API to get latitudes and longitudes based on a city search. we get the const values lat,lon from the data.
 function getCityCoordinates(city) {
@@ -342,3 +338,35 @@ const APIController = (function() {
     }
 })();
 
+// Search City
+document.getElementById('searchButton').addEventListener('click', function() {
+    const cityName = document.getElementById('cityInput').value;
+    getCityCoordinates(cityName);
+    const searchLocation = document.getElementById(`resultsPanel`);
+    const panelLocation = document.getElementById(`resultsPanel`);
+    panelLocation.classList.remove("hidden");
+    panelLocation.classList("is-half");
+    searchLocation.classlist("is-half");
+});
+
+// Results tabs for Vibe and Forecast
+document.addEventListener('DOMContentLoaded', () => {
+    const vibeTab = document.getElementById('vibeTab');
+    const forecastTab = document.getElementById('forecastTab');
+    const vibeResults = document.getElementById('vibeResults');
+    const forecastResults = document.getElementById('forecastResults');
+
+    vibeTab.addEventListener('click', () => {
+        vibeTab.classList.add('is-active');
+        forecastTab.classList.remove('is-active');
+        vibeResults.style.display = 'block';
+        forecastResults.style.display = 'none';
+    });
+
+    forecastTab.addEventListener('click', () => {
+        forecastTab.classList.add('is-active');
+        vibeTab.classList.remove('is-active');
+        vibeResults.style.display = 'none';
+        forecastResults.style.display = 'block';
+    });
+});

@@ -1,3 +1,9 @@
+/* *, html {
+    background-color: #14161A;
+} */
+
+/* Nav Starts Here */
+
 .weather-card {
   margin: 0 0 20px 0;
   border: 3px solid black;
@@ -15,3 +21,13 @@
     flex-wrap: wrap;
     justify-content: space-between;
 }
+
+.hidden {
+    display: none;
+}
+
+
+/* Main Starts Here */
+
+
+/* Footer Starts Here */
