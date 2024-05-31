@@ -26,6 +26,10 @@
     display: none;
 }
 
+.is-active {
+    display: block;
+}
+
 
 /* Main Starts Here */
 
