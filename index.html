@@ -12,32 +12,43 @@
 <body>
     <nav class="navbar" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
-            <a class="navbar-item">
-                <h1 class="title" href="https://wilsacker.github.io/Vibes-Cast/">
+            <a class="navbar-item" href="https://wilsacker.github.io/Vibes-Cast/">
+                <h1 class="title">
                     VibesCast🎧
                 </h1>
             </a>
-            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <!-- Add an id to the navbar-burger -->
+            <a id="navbarBurger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
             </a>
         </div>
+        <!-- Add a div for the dropdown menu -->
+        <div id="dropdownMenu" class="navbar-menu">
+            <div class="navbar-start">
+                <!-- Add your dropdown menu items here -->
+                <a class="navbar-item" href="#">Option 1</a>
+                <a class="navbar-item" href="#">Option 2</a>
+                <a class="navbar-item" href="#">Option 3</a>
+            </div>
+        </div>
     </nav>
 
-    <section class="section">
+    <main class="section">
         <div class="container">
-            
-        <p class="subtitle">
+            <p class="subtitle">
                 Playlist Recommendations For Your Weather Forecast 🤘
             </p>
             <div class="columns">
-                <div class="column is-half">
+                <div class="column" id="searchPanel">
+                    <!-- is half -->
                     <div class="notification is-primary">
                         <div class="field is-grouped">
                             <p class="control is-expanded">
-                                <input class="input" type="text" placeholder="Search Location" id="searchInput">
+                              <!-- changed id to cityInput -->
+                                <input class="input" type="text" placeholder="Search Location" id="cityInput">
                             </p>
                             <p class="control">
                                 <button class="button is-info" id="searchButton">
@@ -46,96 +57,98 @@
                             </p>
                         </div>
                     </div>
-                    <div class="column is-half">
-                      <!-- changed id to weatherResults -->
-                        <section class="panel">
-                            <p class="panel-heading">Location Results</p>
-                            <p class="panel-tabs">
-                                <a id="forecastTab">Forecast</a>
-                                <a id="vibeTab">Vibe</a>
-                            </p>
-                            <div class="hidden" id="vibeResults">
+                </div>
+                <div class="column hidden" id="resultsPanel">
+                    <!-- is half -->
+                  <!-- changed id to weatherResults -->
+                    <section class="panel">
+                        <p class="panel-heading">Location Results</p>
+                        <p class="panel-tabs">
+                            <a id="forecastTab">Forecast</a>
+                            <a id="vibeTab">Vibe</a>
+                        </p>
+                        <div class="hidden" id="vibeResults">
+                        <a class="panel-block">
+                            <span class="panel-icon">
+                                <i class="fas fa-book" aria-hidden="true"></i>
+                            </span>
+                            Playlist Result option #1
+                        </a>
+                        <a class="panel-block">
+                            <span class="panel-icon">
+                                <i class="fas fa-book" aria-hidden="true"></i>
+                            </span>
+                            Playlist Result option #2
+                        </a>
+                        <a class="panel-block">
+                            <span class="panel-icon">
+                                <i class="fas fa-book" aria-hidden="true"></i>
+                            </span>
+                            Playlist Result option #3
+                        </a>
+                        <a class="panel-block">
+                            <span class="panel-icon">
+                                <i class="fas fa-book" aria-hidden="true"></i>
+                            </span>
+                            Playlist Result option #4
+                        </a>
+                        </div>
+                        <div class="hidden" id=weatherResults>
                             <a class="panel-block">
                                 <span class="panel-icon">
-                                    <i class="fas fa-book" aria-hidden="true"></i>
+                                    <i class="fas fa-cloud" aria-hidden="true"></i>
                                 </span>
-                                Playlist Result option #1
+                                Weather Forecast option #1
                             </a>
                             <a class="panel-block">
                                 <span class="panel-icon">
-                                    <i class="fas fa-book" aria-hidden="true"></i>
+                                    <i class="fas fa-cloud" aria-hidden="true"></i>
                                 </span>
-                                Playlist Result option #2
+                                Weather Forecast option #2
                             </a>
                             <a class="panel-block">
                                 <span class="panel-icon">
-                                    <i class="fas fa-book" aria-hidden="true"></i>
+                                    <i class="fas fa-cloud" aria-hidden="true"></i>
                                 </span>
-                                Playlist Result option #3
+                                Weather Forecast option #3
                             </a>
                             <a class="panel-block">
                                 <span class="panel-icon">
-                                    <i class="fas fa-book" aria-hidden="true"></i>
+                                    <i class="fas fa-cloud" aria-hidden="true"></i>
                                 </span>
-                                Playlist Result option #4
+                                Weather Forecast option #4
                             </a>
-                            </div>
-                            <div class="hidden" id=weatherResults>
-                                <a class="panel-block">
-                                    <span class="panel-icon">
-                                        <i class="fas fa-cloud" aria-hidden="true"></i>
-                                    </span>
-                                    Weather Forecast option #1
-                                </a>
-                                <a class="panel-block">
-                                    <span class="panel-icon">
-                                        <i class="fas fa-cloud" aria-hidden="true"></i>
-                                    </span>
-                                    Weather Forecast option #2
-                                </a>
-                                <a class="panel-block">
-                                    <span class="panel-icon">
-                                        <i class="fas fa-cloud" aria-hidden="true"></i>
-                                    </span>
-                                    Weather Forecast option #3
-                                </a>
-                                <a class="panel-block">
-                                    <span class="panel-icon">
-                                        <i class="fas fa-cloud" aria-hidden="true"></i>
-                                    </span>
-                                    Weather Forecast option #4
-                                </a>
-                                <a class="panel-block">
-                                    <span class="panel-icon">
-                                        <i class="fas fa-cloud" aria-hidden="true"></i>
-                                    </span>
-                                    Weather Forecast option #5
-                                </a>
-                                <a class="panel-block">
-                                    <span class="panel-icon">
-                                        <i class="fas fa-cloud" aria-hidden="true"></i>
-                                    </span>
-                                    Weather Forecast option #6
-                                </a>
-                                <a class="panel-block">
-                                    <span class="panel-icon">
-                                        <i class="fas fa-cloud" aria-hidden="true"></i>
-                                    </span>
-                                    Weather Forecast option #7
-                                </a>
-                            </div>
-                            <div class="panel-block">
-                                <button class="button is-link is-outlined is-fullwidth">
-                                    Reset all filters
-                                </button>
-                            </div>
-                        </section>
-                    </div>
+                            <a class="panel-block">
+                                <span class="panel-icon">
+                                    <i class="fas fa-cloud" aria-hidden="true"></i>
+                                </span>
+                                Weather Forecast option #5
+                            </a>
+                            <a class="panel-block">
+                                <span class="panel-icon">
+                                    <i class="fas fa-cloud" aria-hidden="true"></i>
+                                </span>
+                                Weather Forecast option #6
+                            </a>
+                            <a class="panel-block">
+                                <span class="panel-icon">
+                                    <i class="fas fa-cloud" aria-hidden="true"></i>
+                                </span>
+                                Weather Forecast option #7
+                            </a>
+                        </div>
+                        <div class="panel-block">
+                            <button class="button is-link is-outlined is-fullwidth">
+                                Reset all filters
+                            </button>
+                        </div>
+                    </section>
                 </div>
             </div>
-        </main>
-    
-        <script src="./assets/js/index.js"></script>
-    </body>
-    
-    </html>
+        </div>
+    </main>
+
+    <script src="./assets/js/index.js"></script>
+</body>
+
+</html>
