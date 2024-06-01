@@ -251,12 +251,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // You get clientId and clientSecret during registation
 const APIController = (function() {
-    const clientId = "";
-    const clientSecret = "";
+    const clientId = "85aa1b8ce49b49eb87d1cfe0ba9b3f96";
+    const clientSecret = "2dd9402bc04447cd917e5c5f513603a3";
 
     // Each https is from the Spotify API URL. The token will give us actual playlists
     const _getToken = async () => {
-        const result = await fetch('https://spotify.com/?apitoken', {
+        const result = await fetch(`https://accounts.spotify.com/api/token`, {
             method: 'POST',
             headers: {
                 'Content-Type' : 'application/x-www-form-urlencoded',
@@ -271,7 +271,7 @@ const APIController = (function() {
     
     // This gives us a list of catergories
     const _getGenres = async (token) => {
-        const result = await fetch('https://spotify.com/v1/browse/categories?', {
+        const result = await fetch(`https://api.spotify.com/v1/browse/categories/categories?locale=sv_US`, {
             method: 'GET',
             headers: { 'Authorization' : 'Bearer' + token}
         });
@@ -284,7 +284,7 @@ const APIController = (function() {
     const _getPlaylistByGenre = async (token, genreId) => {
         const limit = 10;
 
-        const result = await fetch('https://spotify.com/?browse/playlist', {
+        const result = await fetch(`https://api.spotify.com/v1/browse/categories/${genreId}playlists?limit=${limit}`, {
             method: 'GET',
             headers: { 'Authorization' : 'Bearer' + token}
         });
@@ -297,7 +297,7 @@ const APIController = (function() {
     const _getTracks = async (token, tracksEndPoint) => {
         const limit = 10;
 
-        const result = await fetch('${tracksEndPoint}?limit=${limit}', {
+        const result = await fetch(`${tracksEndPoint}?limit=${limit}`, {
             method: 'GET',
             headers: { 'Authorization' : 'Bearer' + token}
 
@@ -308,9 +308,9 @@ const APIController = (function() {
     }
 
     // This gives us a track
-    const _getTrack = async (token, tracksEndPoint) => {
+    const _getTrack = async (token, trackEndPoint) => {
         
-        const result = await fetch('${tracksEndPoint}', {
+        const result = await fetch(`${trackEndPoint}`, {
             method: 'GET',
             headers: { 'Authorization' : 'Bearer' + token}
         });
@@ -333,10 +333,12 @@ const APIController = (function() {
             return _getTracks(token, tracksEndPoint);
         },
         getTrack(token, tracksEndPoint) {
-            return _getTrack(token, tracksEndPoint);
+            return _getTrack(token, trackEndPoint);
         }
     }
 })();
+
+
 
 // Search City
 document.getElementById('searchButton').addEventListener('click', function() {
