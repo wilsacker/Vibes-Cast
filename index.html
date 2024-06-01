@@ -62,53 +62,55 @@
                         <nav class="panel" id="resultsPanel">
                             <p class="panel-heading" type="text" placeholder="Search">Location Results</p>
                             <p class="panel-tabs">
-                                <a class="is-active"  >Vibe</a>
-                                <a id="weatherResults">Forecast</a>
+                                <a id="vibeTab" class="is-active"  >Vibe</a>
+                                <a id= "forecastTab">Forecast</a>
                             </p>
-                            <a class="panel-block" id = "daily-0">
+                            <div id="weatherResults" class="is-hidden"></div>
+                              <a class="panel-block" id = "daily-0">
                                 <span class="panel-icon">
                                     <i class="fas fa-book" aria-hidden="true"></i>
                                 </span>
                                 Playlist Result option #1
-                            </a>
-                            <a class="panel-block" id = "daily-1">
+                              </a>
+                              <a class="panel-block" id = "daily-1">
                                 <span class="panel-icon">
                                     <i class="fas fa-book" aria-hidden="true"></i>
                                 </span>
                                 Playlist Result option #2
-                            </a>
-                            <a class="panel-block" id = "daily-2">
+                              </a>
+                              <a class="panel-block" id = "daily-2">
                                 <span class="panel-icon">
                                     <i class="fas fa-book" aria-hidden="true"></i>
                                 </span>
                                 Playlist Result option #3
-                            </a>
-                            <a class="panel-block" id = "daily-3">
+                              </a>
+                              <a class="panel-block" id = "daily-3">
                                 <span class="panel-icon">
                                     <i class="fas fa-code-branch" aria-hidden="true"></i>
                                 </span>
                                 Playlist Result option #4
-                            </a>
-                            <a class="panel-block" id = "daily-4">
+                              </a>
+                              <a class="panel-block" id = "daily-4">
                                 <span class="panel-icon">
                                     <i class="fas fa-code-branch" aria-hidden="true"></i>
                                 </span>
                                 Playlist Result option #5
-                            </a>
-                            <a class="panel-block" id = "daily-5">
-                              <span class="panel-icon">
+                              </a>
+                              <a class="panel-block" id = "daily-5">
+                                <span class="panel-icon">
                                   <i class="fas fa-code-branch" aria-hidden="true"></i>
-                              </span>
+                                </span>
                               Playlist Result option #6
-                           </a>
-                           <a class="panel-block" id = "daily-6">
-                            <span class="panel-icon">
-                                <i class="fas fa-code-branch" aria-hidden="true"></i>
-                            </span>
-                            Playlist Result option #7
-                        </a>             
+                              </a>
+                              <a class="panel-block" id = "daily-6">
+                                <span class="panel-icon">
+                                  <i class="fas fa-code-branch" aria-hidden="true"></i>
+                                </span>
+                              Playlist Result option #7
+                              </a> 
+                            </div>            
                             <div class="panel-block">
-                                <button class="button is-link is-outlined is-fullwidth">
+                                <button  class="button is-link is-outlined is-fullwidth">
                                     Reset all filters
                                 </button>
                             </div>
@@ -119,6 +121,7 @@
         </section>
     
         <script src="./assets/js/index.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.10.7/dayjs.min.js"></script>
     </body>
     
     </html>

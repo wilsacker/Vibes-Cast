@@ -167,7 +167,12 @@ function convertCelsiusToFahrenheit(celsius) {
 }
 
 function getWeatherIcon(weathercode) {
-    // weathercode = Number(weathercode);
+    weathercode = Number(weathercode); // Convert to number
+
+    // if (isNaN(weathercode)) {
+    //     console.warn(`Invalid weathercode: ${weathercode}`);
+    //     return '???'; // Return default icon for invalid weathercode
+    // }
     if (weathercode === 0 || weathercode === 1) {
         return '☀️'; // Sun icon for clear or mainly clear sky
     } else if (weathercode === 2 || weathercode === 3 || weathercode === 45) {
@@ -197,7 +202,7 @@ function displayWeatherData(data) {
     const weatherIcon = getWeatherIcon(data.weathercode);
     
     for (let i = 0; i < daily.time.length; i++) {
-        const date = daily.time[i];
+        const date = dayjs(daily.time[i]).format('dddd D MMM'); // Format date using Day.js
         const maxTempC = daily.temperature_2m_max[i];
         const minTempC = daily.temperature_2m_min[i];
         const maxTempF = convertCelsiusToFahrenheit(maxTempC);
@@ -206,14 +211,14 @@ function displayWeatherData(data) {
         const sunrise = daily.sunrise[i];
         const sunset = daily.sunset[i];
         // weatherCode = Number(weatherCode);
-        
 
-        // const weatherIcon = getWeatherIcon(dayForecast.weathercode);
+
+        const weatherIcon = getWeatherIcon(weatherCode);
 
         // the temperature values are rounded to one decimal place with '.toFixed(1)'. This avoids displaying too many decimal places, which can be unnecessary 
         // and clutter the display.
         const weatherCard = document.createElement('div');
-        weatherCard.className = 'weather-card','panel-block', 'panel-icon' ;
+        weatherCard.className = 'weather-card';
         weatherCard.innerHTML = `
             <h3><strong>${date}</strong></h3>
             <p><strong>Max: ${maxTempF.toFixed(1)}°F</strong></p>
@@ -226,37 +231,52 @@ function displayWeatherData(data) {
 
         const el0 = document.getElementById("daily-0")
         el0.className = 'weather-card';
-        el0.innerHTML= `<h3><strong>Date:${daily.time[0]}</strong></h3>` + `<p><strong>Min °F:${minTempF.toFixed(1)}</strong></p>` + `<p><strong>Max :${maxTempF.toFixed(1)}°F</strong></p>` + `Weather:${weatherIcon}`;
+        el0.innerHTML= `Weather:${weatherIcon}`;
         
         const el1 = document.getElementById("daily-1")
         el1.className = 'weather-card';
-        el1.innerHTML= `<h3><strong>Date:${daily.time[1]}</strong></h3>` + `<p><strong>Min °F:${minTempF.toFixed(1)}</strong></p>` + `<p><strong>Max :${maxTempF.toFixed(1)}°F</strong></p>` + `Weather:${weatherIcon}`;
+        el1.innerHTML= `Weather:${weatherIcon}`;
 
         const el2 = document.getElementById("daily-2")
         el2.className = 'weather-card';
-        el2.innerHTML= `<h3><strong>Date:${daily.time[2]}</strong></h3>` + `<p><strong>Min °F:${minTempF.toFixed(1)}</strong></p>` + `<p><strong>Max :${maxTempF.toFixed(1)}°F</strong></p>` + `Weather:${weatherIcon}`;
+        el2.innerHTML= `Weather:${weatherIcon}`;
 
         const el3 = document.getElementById("daily-3")
         el3.className = 'weather-card';
-        el3.innerHTML= `<h3><strong>Date:${daily.time[3]}</strong></h3>` + `<p><strong>Min °F:${minTempF.toFixed(1)}</strong></p>` + `<p><strong>Max :${maxTempF.toFixed(1)}°F</strong></p>` + `Weather:${weatherIcon}`;
+        el3.innerHTML= `Weather:${weatherIcon}`;
 
         const el4 = document.getElementById("daily-4")
         el4.className = 'weather-card';
-        el4.innerHTML= `<h3><strong>Date:${daily.time[4]}</strong></h3>` + `<p><strong>Min °F:${minTempF.toFixed(1)}</strong></p>` + `<p><strong>Max :${maxTempF.toFixed(1)}°F</strong></p>` + `Weather:${weatherIcon}`;
+        el4.innerHTML= `Weather:${weatherIcon}`;
 
         const el5 = document.getElementById("daily-5")
         el5.className = 'weather-card';
-        el5.innerHTML= `<h3><strong>Date:${daily.time[5]}</strong></h3>` + `<p><strong>Min °F:${minTempF.toFixed(1)}</strong></p>` + `<p><strong>Max :${maxTempF.toFixed(1)}°F</strong></p>` + `Weather:${weatherIcon}`;
+        el5.innerHTML= `Weather:${weatherIcon}`;
 
         const el6 = document.getElementById("daily-6")
         el6.className = 'weather-card';
-        el6.innerHTML= `<h3><strong>Date:${daily.time[6]}</strong></h3>` + `<p><strong>Min °F:${minTempF.toFixed(1)}</strong></p>` + `<p><strong>Max :${maxTempF.toFixed(1)}°F</strong></p>` + `Weather:${weatherIcon}`;
+        el6.innerHTML= `Weather:${weatherIcon}`;
 
 
         // const weatherIcon = getWeatherIcon(dayForecast.weathercode);
         weatherResults.appendChild(weatherCard);
     }
+     // Make the weather cards visible when data is loaded
+     weatherResults.classList.remove('is-hidden');
 }
+
+// Tab switching functionality
+document.getElementById('vibeTab').addEventListener('click', function() {
+    document.getElementById('vibeTab').classList.add('is-active');
+    document.getElementById('forecastTab').classList.remove('is-active');
+    document.getElementById('weatherResults').classList.add('is-hidden');
+});
+
+document.getElementById('forecastTab').addEventListener('click', function() {
+    document.getElementById('forecastTab').classList.add('is-active');
+    document.getElementById('vibeTab').classList.remove('is-active');
+    document.getElementById('weatherResults').classList.remove('is-hidden');
+});
         
         //  
 
