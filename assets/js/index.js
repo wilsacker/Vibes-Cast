@@ -127,16 +127,16 @@ document.getElementById('searchButton').addEventListener('click', function() {
     getCityCoordinates(cityName);
 });
 
-// this function is using  Nominatim API to get latitudes and longitudes based on a city search. we get the const values lat,lon from the data.
+// this function is using  API to get latitudes and longitudes based on a city search. we get the const values lat,lon from the data.
 function getCityCoordinates(city) {
-    const apiUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${city}`;
+    const apiUrl = `https://geocoding-api.open-meteo.com/v1/search?name=${city}`;
 
     fetch(apiUrl)
         .then(response => response.json())
         .then(data => {
-            if (data.length > 0) {
-                const latitude = data[0].lat;
-                const longitude = data[0].lon;
+            if (data.results && data.results.length > 0) {
+                const latitude = data.results[0].latitude;
+                const longitude = data.results[0].longitude;
                 getWeatherData(latitude, longitude);
             } else {
                 document.getElementById('weatherResults').innerHTML = 'City not found.';
