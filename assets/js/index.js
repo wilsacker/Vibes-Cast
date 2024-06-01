@@ -230,31 +230,31 @@ function displayWeatherData(data) {
         //     <p>Sunset: ${sunset}</p>
 
         const el0 = document.getElementById("daily-0")
-        el0.className = 'weather-card';
+        // el0.className = 'weather-card';
         el0.innerHTML= `Weather:${weatherIcon}`;
         
         const el1 = document.getElementById("daily-1")
-        el1.className = 'weather-card';
+        // el1.className = 'weather-card';
         el1.innerHTML= `Weather:${weatherIcon}`;
 
         const el2 = document.getElementById("daily-2")
-        el2.className = 'weather-card';
+        // el2.className = 'weather-card';
         el2.innerHTML= `Weather:${weatherIcon}`;
 
         const el3 = document.getElementById("daily-3")
-        el3.className = 'weather-card';
+        // el3.className = 'weather-card';
         el3.innerHTML= `Weather:${weatherIcon}`;
 
         const el4 = document.getElementById("daily-4")
-        el4.className = 'weather-card';
+        // el4.className = 'weather-card';
         el4.innerHTML= `Weather:${weatherIcon}`;
 
         const el5 = document.getElementById("daily-5")
-        el5.className = 'weather-card';
+        // el5.className = 'weather-card';
         el5.innerHTML= `Weather:${weatherIcon}`;
 
         const el6 = document.getElementById("daily-6")
-        el6.className = 'weather-card';
+        // el6.className = 'weather-card';
         el6.innerHTML= `Weather:${weatherIcon}`;
 
 
