@@ -1,8 +1,42 @@
-/* *, html {
+ body {
     background-color: #14161A;
-} */
+    font-family: Arial, Helvetica, sans-serif
+    font
+    
 
+} 
+
+.navbar-burger
 /* Nav Starts Here */
+
+
+.title {
+    border: 25px;
+    padding: 10px 10px 10px 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    
+}
+
+
+.button{
+    color: white;
+}
+
+button:hover {
+    background-color: #63c05e;
+    color: #9d55a5;
+  }
+
+  
+  
+  button:active {
+    box-shadow:10px 5px 5px   #9d55a5;
+  }
+  
+  
+  
 
 .weather-card {
   margin: 0 0 20px 0;
@@ -14,17 +48,19 @@
   justify-content:space-evenly;
 
 }
-.title {
-    border: 25px;
-    padding: 10px 10px 10px 10px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+
+.weather-card:hover{
+    background-color:  #9d55a5;
 }
 
 .hidden {
     display: none;
 }
+
+.is-active {
+    display: block;
+}
+
 
 
 /* Main Starts Here */

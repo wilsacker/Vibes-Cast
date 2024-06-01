@@ -1,3 +1,8 @@
+const vibeTab = document.getElementById('vibeTab');
+    const forecastTab = document.getElementById('forecastTab');
+    const vibeResults = document.getElementById('vibeResults');
+    const forecastResults = document.getElementById('weatherResults');
+
 // Open-meteo Starting guide
 
 // https://api.open-meteo.com/v1/gfs?latitude=52.52&longitude=13.41&hourly=temperature_2m
@@ -246,129 +251,37 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-// API Spotify without HTML
-// This is for the person who will activate the API Spotify on their account
-
-// You get clientId and clientSecret during registation
-const APIController = (function() {
-    const clientId = "85aa1b8ce49b49eb87d1cfe0ba9b3f96";
-    const clientSecret = "2dd9402bc04447cd917e5c5f513603a3";
-
-    // Each https is from the Spotify API URL. The token will give us actual playlists
-    const _getToken = async () => {
-        const result = await fetch(`https://accounts.spotify.com/api/token`, {
-            method: 'POST',
-            headers: {
-                'Content-Type' : 'application/x-www-form-urlencoded',
-                'Authorization' : 'Basic' + btoa(clientId + ':' + clientSecret)
-            },
-            body: 'grant_type=client_credentials'
-        });
-
-        const data = await result.json();
-        return data.access_token;
-    }
-    
-    // This gives us a list of catergories
-    const _getGenres = async (token) => {
-        const result = await fetch(`https://api.spotify.com/v1/browse/categories/categories?locale=sv_US`, {
-            method: 'GET',
-            headers: { 'Authorization' : 'Bearer' + token}
-        });
-
-        const data = await result.json();
-        return data.categories.items;
-    }
-
-    // This gives us a list of catergories playlist
-    const _getPlaylistByGenre = async (token, genreId) => {
-        const limit = 10;
-
-        const result = await fetch(`https://api.spotify.com/v1/browse/categories/${genreId}playlists?limit=${limit}`, {
-            method: 'GET',
-            headers: { 'Authorization' : 'Bearer' + token}
-        });
-
-        const data = await resultjson();
-        return data.categories.items;
-    }
-
-    // This gives us items of a playlist
-    const _getTracks = async (token, tracksEndPoint) => {
-        const limit = 10;
-
-        const result = await fetch(`${tracksEndPoint}?limit=${limit}`, {
-            method: 'GET',
-            headers: { 'Authorization' : 'Bearer' + token}
-
-        });
-
-        const data = await resultjson();
-        return data.items;
-    }
-
-    // This gives us a track
-    const _getTrack = async (token, trackEndPoint) => {
-        
-        const result = await fetch(`${trackEndPoint}`, {
-            method: 'GET',
-            headers: { 'Authorization' : 'Bearer' + token}
-        });
-
-        const data = await resultjson();
-        return data;
-    }
-
-    return {
-        getToken() {
-            return _getToken();
-        },
-        getGenres(token) {
-            return _getGenres(token);
-        },
-        getPlaylistByGenre(token, genreId) {
-            return _getPlaylistByGenre(token, genreId); 
-        },
-        getTracks(token, tracksEndPoint) {
-            return _getTracks(token, tracksEndPoint);
-        },
-        getTrack(token, tracksEndPoint) {
-            return _getTrack(token, trackEndPoint);
-        }
-    }
-})();
-
-
-
 // Search City
 document.getElementById('searchButton').addEventListener('click', function() {
     const cityName = document.getElementById('cityInput').value;
     getCityCoordinates(cityName);
-    const searchLocation = document.getElementById(`resultsPanel`);
+    const searchLocation = document.getElementById(`searchPanel`);
     const panelLocation = document.getElementById(`resultsPanel`);
     panelLocation.classList.remove("hidden");
-    panelLocation.classList("is-half");
-    searchLocation.classlist("is-half");
+    panelLocation.classList.add("is-half");
+    searchLocation.classList.add("is-half");
+    forecastResults.classList.remove('hidden');
+    vibeResults.classList.add('hidden')
+    forecastTab.classList.add('is-active');
+    vibeTab.classList.remove('is-active')
 });
 
 // Results tabs for Vibe and Forecast
 document.addEventListener('DOMContentLoaded', () => {
-    const vibeTab = document.getElementById('vibeTab');
-    const forecastTab = document.getElementById('forecastTab');
-    const vibeResults = document.getElementById('vibeResults');
-    const forecastResults = document.getElementById('forecastResults');
 
     vibeTab.addEventListener('click', () => {
+        vibeResults.classList.remove('hidden');
         vibeTab.classList.add('is-active');
+        forecastResults.classList.add('hidden');
         forecastTab.classList.remove('is-active');
-        vibeResults.style.display = 'block';
-        forecastResults.style.display = 'none';
     });
 
     forecastTab.addEventListener('click', () => {
+        forecastResults.classList.remove('hidden');
         forecastTab.classList.add('is-active');
+        vibeResults.classList.add('hidden');
         vibeTab.classList.remove('is-active');
-        vibeResults.style.display = 'none';
-        forecastResults.style.display = 'block';
     });
 });
+
+// Create function to create panels. Needs whatever object going into the Panel //
