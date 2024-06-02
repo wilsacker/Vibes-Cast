@@ -122,7 +122,7 @@
 // getApi(queryUrl)
 
 // event listener which collects the value inputed. cityName as a const to be sent as a parameter for the getCityCoordinates function.
-document.getElementById('searchButton').addEventListener('click', function() {
+document.getElementById('searchButton').addEventListener('click', function () {
     const cityName = document.getElementById('cityInput').value;
     getCityCoordinates(cityName);
 });
@@ -157,13 +157,13 @@ function getWeatherData(lat, lon) {
         })
         .catch(error => console.error('Error fetching weather data:', error));
 
-        
-  
+
+
 }
 
 // this function takes the default value unit celsius in open-meteo api and converts it to farenheit unit
 function convertCelsiusToFahrenheit(celsius) {
-    return (celsius * 9/5) + 32;
+    return (celsius * 9 / 5) + 32;
 }
 
 function getWeatherIcon(weathercode) {
@@ -177,30 +177,44 @@ function getWeatherIcon(weathercode) {
         return '☀️'; // Sun icon for clear or mainly clear sky
     } else if (weathercode === 2 || weathercode === 3 || weathercode === 45) {
         return '☁️'; // Cloud icon for partly cloudy, overcast, or fog
-    } else if ([51, 53, 55, 61, 63, 65, 66, 67, 81,82, 85, 86, 95, 96, 99].includes(weathercode)) {
+    } else if ([51, 53, 55, 61, 63, 65, 66, 67, 81, 82, 85, 86, 95, 96, 99].includes(weathercode)) {
         return '🌧️'; // Rain icon for various rain and drizzle conditions
     } else {
         console.warn(`Unknown weathercode: ${weathercode}`); // Warn if the weathercode is not recognized
         return '❓'; // Default icon for any other conditions
-        
+
+    }
+}
+
+function getWeatherIconAndGenre(weathercode) {
+    weathercode = Number(weathercode); // Convert to number
+    if (weathercode === 0 || weathercode === 1) {
+        return { icon: ':sunny:', genre: 'electronic' }; // Sun icon and electronic music for clear or mainly clear sky
+    } else if (weathercode === 2 || weathercode === 3 || weathercode === 45) {
+        return { icon: ':cloud:', genre: 'alternative' }; // Cloud icon and alternative music for partly cloudy, overcast, or fog
+    } else if ([51, 53, 55, 61, 63, 65, 66, 67, 81, 82, 85, 86, 95, 96, 99].includes(weathercode)) {
+        return { icon: ':rain_cloud:', genre: 'jazz' }; // Rain icon and jazz music for various rain and drizzle conditions
+    } else {
+        console.warn(`Unknown weathercode: ${weathercode}`); // Warn if the weathercode is not recognized
+        return { icon: ':question:', genre: 'pop' }; // Default icon and pop music for any other conditions
     }
 }
 
 // a function to display the data fetched  and filtered by the 'daily' parameter. it should be reworked to create a card for each day/forecast. 
 // the "weather code" value from the "daily" parameter should be utilized for pairing with Spotify api playlist values.
 function displayWeatherData(data) {
-    
+
     const weatherResults = document.getElementById('weatherResults');
     weatherResults.innerHTML = '';
 
     // local storage for the 'daily' values.
     localStorage.setItem('cityWeather', JSON.stringify(data));
-    
-    
+
+
     const daily = data.daily;
-    
+
     const weatherIcon = getWeatherIcon(data.weathercode);
-    
+
     for (let i = 0; i < daily.time.length; i++) {
         const date = dayjs(daily.time[i]).format('dddd D MMM'); // Format date using Day.js
         const maxTempC = daily.temperature_2m_max[i];
@@ -208,6 +222,8 @@ function displayWeatherData(data) {
         const maxTempF = convertCelsiusToFahrenheit(maxTempC);
         const minTempF = convertCelsiusToFahrenheit(minTempC);
         const weatherCode = daily.weathercode[i];
+        const genreData= getWeatherIconAndGenre(weatherCode)
+        getSpotifyData(genreData.genre)
         const sunrise = daily.sunrise[i];
         const sunset = daily.sunset[i];
         // weatherCode = Number(weatherCode);
@@ -230,57 +246,57 @@ function displayWeatherData(data) {
         //     <p>Sunset: ${sunset}</p>
 
         const el0 = document.getElementById("daily-0")
-        // el0.className = 'weather-card';
-        el0.innerHTML= `Weather:${weatherIcon}`;
-        
+        el0.className = 'weather-card';
+        el0.innerHTML = `Weather:${weatherIcon}`;
+
         const el1 = document.getElementById("daily-1")
-        // el1.className = 'weather-card';
-        el1.innerHTML= `Weather:${weatherIcon}`;
+        el1.className = 'weather-card';
+        el1.innerHTML = `Weather:${weatherIcon}`;
 
         const el2 = document.getElementById("daily-2")
-        // el2.className = 'weather-card';
-        el2.innerHTML= `Weather:${weatherIcon}`;
+        el2.className = 'weather-card';
+        el2.innerHTML = `Weather:${weatherIcon}`;
 
         const el3 = document.getElementById("daily-3")
-        // el3.className = 'weather-card';
-        el3.innerHTML= `Weather:${weatherIcon}`;
+        el3.className = 'weather-card';
+        el3.innerHTML = `Weather:${weatherIcon}`;
 
         const el4 = document.getElementById("daily-4")
-        // el4.className = 'weather-card';
-        el4.innerHTML= `Weather:${weatherIcon}`;
+        el4.className = 'weather-card';
+        el4.innerHTML = `Weather:${weatherIcon}`;
 
         const el5 = document.getElementById("daily-5")
-        // el5.className = 'weather-card';
-        el5.innerHTML= `Weather:${weatherIcon}`;
+        el5.className = 'weather-card';
+        el5.innerHTML = `Weather:${weatherIcon}`;
 
         const el6 = document.getElementById("daily-6")
         // el6.className = 'weather-card';
-        el6.innerHTML= `Weather:${weatherIcon}`;
+        el6.innerHTML = `Weather:${weatherIcon}`;
 
 
         // const weatherIcon = getWeatherIcon(dayForecast.weathercode);
         weatherResults.appendChild(weatherCard);
     }
-     // Make the weather cards visible when data is loaded
-     weatherResults.classList.remove('is-hidden');
+    // Make the weather cards visible when data is loaded
+    weatherResults.classList.remove('is-hidden');
 }
 
 // Tab switching functionality
-document.getElementById('vibeTab').addEventListener('click', function() {
+document.getElementById('vibeTab').addEventListener('click', function () {
     document.getElementById('vibeTab').classList.add('is-active');
     document.getElementById('forecastTab').classList.remove('is-active');
     document.getElementById('weatherResults').classList.add('is-hidden');
 });
 
-document.getElementById('forecastTab').addEventListener('click', function() {
+document.getElementById('forecastTab').addEventListener('click', function () {
     document.getElementById('forecastTab').classList.add('is-active');
     document.getElementById('vibeTab').classList.remove('is-active');
     document.getElementById('weatherResults').classList.remove('is-hidden');
 });
-        
-        //  
 
-        // localStorage.setItem('cityWeather', JSON.stringify(data.daily));
+//  
+
+// localStorage.setItem('cityWeather', JSON.stringify(data.daily));
 //     }
 // }
 
@@ -296,17 +312,17 @@ document.getElementById('forecastTab').addEventListener('click', function() {
 //     61: "Rain Light",
 //     63: "Rain mid",
 //     65: "Rain heavy",
-    // Add more weather codes as needed
+// Add more weather codes as needed
 // };
 
 // function getParams() {
-    // Get the search params out of the URL (i.e. `?q=london&format=photo`) and convert it to an array (i.e. ['?q=london', 'format=photo'])
-    // const searchParamsArr = document.location.forecast.split('&');
-  
-    // Get the query and format values
+// Get the search params out of the URL (i.e. `?q=london&format=photo`) and convert it to an array (i.e. ['?q=london', 'format=photo'])
+// const searchParamsArr = document.location.forecast.split('&');
+
+// Get the query and format values
 //     const query = searchParamsArr[0].split('=').pop();
 //     const format = searchParamsArr[1].split('=').pop();
-  
+
 //     searchApi(query, format);
 //   }
 
@@ -324,3 +340,75 @@ document.addEventListener('DOMContentLoaded', function () {
         dropdownMenu.classList.toggle('is-active');
     });
 });
+
+// ========
+
+const requestSpotifyAccess = () => {
+    const params = new URLSearchParams({
+        response_type: "token",
+        client_id: "85aa1b8ce49b49eb87d1cfe0ba9b3f96",
+        scope: 'user-read-private user-read-email',// Example scopes, add other scopes as needed
+        redirect_uri: location.protocol + "//" + location.host + location.pathname,
+    })
+    const url = "https://accounts.spotify.com/authorize?" + params
+    location.href = url
+}
+let auth = Object.fromEntries(new URLSearchParams(location.hash.substring(1)).entries())
+if (auth.access_token) {
+    location.hash = ""
+    localStorage.setItem("spotify_access_token", auth.access_token)
+}
+const access_token = localStorage.getItem("spotify_access_token")
+if (access_token) {
+    document.querySelector("#authorize").hidden = true
+    // you are authorized
+    getSpotifyData("pop")   // forecast says sunny == 'pop'  --> user inputs a city for a forecast --> rainy == "jazz"
+} else {
+    // you need to request token
+    document.querySelector("#authorize").addEventListener("click", requestSpotifyAccess)
+}
+console.log(auth)
+//async function getProfile(accessToken) {
+
+
+async function getSpotifyData(searchTerm) {
+    let accessToken = localStorage.getItem('spotify_access_token');
+    // const response = await fetch('https://api.spotify.com/v1/browse/new-releases?limit=5', {
+    // const response = await fetch('https://api.spotify.com/v1/recommendations/available-genre-seeds', {
+    const response = await fetch(`https://api.spotify.com/v1/search?q=${searchTerm}&type=playlist`, {
+        headers: {
+            Authorization: 'Bearer ' + accessToken
+        }
+    });
+    const data = await response.json();
+    console.log("Data: ", data);
+    let playlistId = data.playlists.items[0].id
+    console.log('ID: ', playlistId)
+    const playlistResponse = await fetch(`https://api.spotify.com/v1/playlists/${playlistId}`, {
+        headers: {
+            Authorization: 'Bearer ' + accessToken
+        }
+    });
+    const playlistData = await playlistResponse.json();
+    console.log("Playlist Data: ", playlistData);
+}
+const getRefreshToken = async () => {
+    // refresh token that has been previously stored
+    const refreshToken = localStorage.getItem('refresh_token');
+    const url = "https://accounts.spotify.com/api/token";
+    const payload = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: new URLSearchParams({
+            grant_type: 'refresh_token',
+            refresh_token: refreshToken,
+            client_id: clientId
+        }),
+    }
+    const body = await fetch(url, payload);
+    const response = await body.json();
+    localStorage.setItem('access_token', response.accessToken);
+    localStorage.setItem('refresh_token', response.refreshToken);
+}
