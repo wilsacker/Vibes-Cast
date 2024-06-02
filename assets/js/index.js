@@ -3,6 +3,7 @@ const forecastTab = document.getElementById('forecastTab');
 const vibeResults = document.getElementById('vibeResults');
 const forecastResults = document.getElementById('weatherResults');
 const recentSearches = document.getElementById('recentSearchesCard')
+const searchPrompt = document.getElementById('searchPrompt')
 // Open-meteo Starting guide
 
 // https://api.open-meteo.com/v1/gfs?latitude=52.52&longitude=13.41&hourly=temperature_2m
@@ -392,8 +393,9 @@ document.getElementById('searchButton').addEventListener('click', function() {
     forecastResults.classList.remove('hidden');
     vibeResults.classList.add('hidden')
     forecastTab.classList.add('is-active');
-    vibeTab.classList.remove('is-active')
-    recentSearches.classList.remove(`hidden`)
+    vibeTab.classList.remove('is-active');
+    recentSearches.classList.remove(`hidden`);
+    searchPrompt.classList.add('hidden');
 });
 
 // Results tabs for Vibe and Forecast
