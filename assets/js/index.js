@@ -2,7 +2,7 @@ const vibeTab = document.getElementById('vibeTab');
 const forecastTab = document.getElementById('forecastTab');
 const vibeResults = document.getElementById('vibeResults');
 const forecastResults = document.getElementById('weatherResults');
-
+const recentSearches = document.getElementById('recentSearchesCard')
 // Open-meteo Starting guide
 
 // https://api.open-meteo.com/v1/gfs?latitude=52.52&longitude=13.41&hourly=temperature_2m
@@ -212,15 +212,15 @@ function displayWeatherData(data) {
 
 // Function to save search to local storage
 function saveSearch(city) {
-    let searches = JSON.parse(localStorage.getItem('recentSearches')) || []; // Initialize as empty array if null
+    let searches = JSON.parse(localStorage.getItem('recentSearches')) || [];
     if (!searches.includes(city)) {
-        searches.push(city);
-        // Keep only the latest 5 searches
-        if (searches.length > 5) {
-            searches.shift();
-        }
-        localStorage.setItem('recentSearches', JSON.stringify(searches));
+        searches.unshift(city); // Add new search to the beginning
     }
+    // Keep only the latest 5 searches
+    if (searches.length > 5) {
+        searches = searches.slice(0, 5);
+    }
+    localStorage.setItem('recentSearches', JSON.stringify(searches));
 }
 
 // Function to display recent searches
@@ -229,6 +229,8 @@ function displayRecentSearches() {
     localStorageDiv.innerHTML = '';
 
     let searches = JSON.parse(localStorage.getItem('recentSearches')) || [];
+    
+    // Reverse the searches array to show latest first
     searches.forEach(city => {
         const searchItem = document.createElement('div');
         searchItem.className = 'search-item';
@@ -240,6 +242,7 @@ function displayRecentSearches() {
         localStorageDiv.appendChild(searchItem);
     });
 }
+
 
 
 // const weatherCodes = {
@@ -386,6 +389,7 @@ document.getElementById('searchButton').addEventListener('click', function() {
     vibeResults.classList.add('hidden')
     forecastTab.classList.add('is-active');
     vibeTab.classList.remove('is-active')
+    recentSearches.classList.remove(`hidden`)
 });
 
 // Results tabs for Vibe and Forecast
