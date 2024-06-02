@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <!-- add local storage -->
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -37,7 +35,7 @@
 
     <main class="section">
         <div class="container">
-            <p class="subtitle">
+            <p class="subtitle" id="searchPrompt">
                 Playlist Recommendations For Your Weather Forecast 🤘
             </p>
             <div class="columns">
@@ -56,47 +54,29 @@
                             </p>
                         </div>
                     </div>
+                    <!-- local storage div -->
+                <div class="colomn hidden" id="recentSearchesCard">
+                    <section class="panel">
+                        <p class="panel-heading">Recent Searches</p>
+                        <div class="card-content" id="LocalStorage">
+                            <!-- Recent searches will be inserted here -->
+                        </div>
+                    </section>
                 </div>
-                <!-- local storage div -->
-                <div class="localStorage" id="LocalStorage"> 
                 </div>
                 <div class="column hidden" id="resultsPanel">
                     <!-- is half -->
                   <!-- changed id to weatherResults -->
-                    <section class="panel">
+                    <section class="panel is-primary">
                         <p class="panel-heading">Location Results</p>
                         <p class="panel-tabs">
                             <a id="forecastTab">Forecast</a>
                             <a id="vibeTab">Vibe</a>
                         </p>
-                        <div class="hidden" id="vibeResults">
-                        <a class="panel-block">
-                            <span class="panel-icon">
-                                <i class="fas fa-book" aria-hidden="true"></i>
-                            </span>
-                            Playlist Result option #1
-                        </a>
-                        <a class="panel-block">
-                            <span class="panel-icon">
-                                <i class="fas fa-book" aria-hidden="true"></i>
-                            </span>
-                            Playlist Result option #2
-                        </a>
-                        <a class="panel-block">
-                            <span class="panel-icon">
-                                <i class="fas fa-book" aria-hidden="true"></i>
-                            </span>
-                            Playlist Result option #3
-                        </a>
-                        <a class="panel-block">
-                            <span class="panel-icon">
-                                <i class="fas fa-book" aria-hidden="true"></i>
-                            </span>
-                            Playlist Result option #4
-                        </a>
-                        </div>
                         <div class="hidden" id=weatherResults>
-                            <a class="panel-block">
+                           <!-- Weather panels will be inserted here -->
+                           
+                            <!-- <a class="panel-block">
                                 <span class="panel-icon">
                                     <i class="fas fa-cloud" aria-hidden="true"></i>
                                 </span>
@@ -137,11 +117,38 @@
                                     <i class="fas fa-cloud" aria-hidden="true"></i>
                                 </span>
                                 Weather Forecast option #7
+                            </a> -->
+                        </div>
+                        <div class="hidden" id="vibeResults">
+                            <!-- Vibe Panels will be inserted here -->
+                            <!-- <a class="panel-block">
+                                <span class="panel-icon">
+                                    <i class="fas fa-book" aria-hidden="true"></i>
+                                </span>
+                                Playlist Result option #1
                             </a>
+                            <a class="panel-block">
+                                <span class="panel-icon">
+                                    <i class="fas fa-book" aria-hidden="true"></i>
+                                </span>
+                                Playlist Result option #2
+                            </a>
+                            <a class="panel-block">
+                                <span class="panel-icon">
+                                    <i class="fas fa-book" aria-hidden="true"></i>
+                                </span>
+                                Playlist Result option #3
+                            </a>
+                            <a class="panel-block">
+                                <span class="panel-icon">
+                                    <i class="fas fa-book" aria-hidden="true"></i>
+                                </span>
+                                Playlist Result option #4
+                            </a> -->
                         </div>
                         <div class="panel-block">
-                            <button class="button is-link is-outlined is-fullwidth">
-                                Reset all filters
+                            <button class="button is-link is-outlined is-fullwidth" id="resetSearchButton">
+                                Reset Search
                             </button>
                         </div>
                     </section>

@@ -1,8 +1,9 @@
 const vibeTab = document.getElementById('vibeTab');
-    const forecastTab = document.getElementById('forecastTab');
-    const vibeResults = document.getElementById('vibeResults');
-    const forecastResults = document.getElementById('weatherResults');
-
+const forecastTab = document.getElementById('forecastTab');
+const vibeResults = document.getElementById('vibeResults');
+const forecastResults = document.getElementById('weatherResults');
+const recentSearches = document.getElementById('recentSearchesCard')
+const searchPrompt = document.getElementById('searchPrompt')
 // Open-meteo Starting guide
 
 // https://api.open-meteo.com/v1/gfs?latitude=52.52&longitude=13.41&hourly=temperature_2m
@@ -139,6 +140,8 @@ function getCityCoordinates(city) {
                 const latitude = data[0].lat;
                 const longitude = data[0].lon;
                 getWeatherData(latitude, longitude);
+                saveSearch(city)
+                displayRecentSearches()
             } else {
                 document.getElementById('weatherResults').innerHTML = 'City not found.';
             }
@@ -157,9 +160,6 @@ function getWeatherData(lat, lon) {
             console.log(data)
         })
         .catch(error => console.error('Error fetching weather data:', error));
-
-        
-  
 }
 
 // this function takes the default value unit celsius in open-meteo api and converts it to farenheit unit
@@ -210,6 +210,42 @@ function displayWeatherData(data) {
 //     }
 // }
 
+
+// Function to save search to local storage
+function saveSearch(city) {
+    let searches = JSON.parse(localStorage.getItem('recentSearches')) || [];
+    if (!searches.includes(city)) {
+        searches.unshift(city); // Add new search to the beginning
+    }
+    // Keep only the latest 5 searches
+    if (searches.length > 5) {
+        searches = searches.slice(0, 5);
+    }
+    localStorage.setItem('recentSearches', JSON.stringify(searches));
+}
+
+// Function to display recent searches
+function displayRecentSearches() {
+    const localStorageDiv = document.getElementById('LocalStorage');
+    localStorageDiv.innerHTML = '';
+
+    let searches = JSON.parse(localStorage.getItem('recentSearches')) || [];
+    
+    // Reverse the searches array to show latest first
+    searches.forEach(city => {
+        const searchItem = document.createElement('a');
+        searchItem.className = 'panel-block';
+        searchItem.innerHTML = `
+            <span class="panel-icon">
+                <i class="fas fa-search" aria-hidden="true"></i>
+            </span>${city}`;
+        searchItem.addEventListener('click', () => {
+            document.getElementById('cityInput').value = city;
+            getCityCoordinates(city);
+        });
+        localStorageDiv.appendChild(searchItem);
+    });
+}
 
 
 
@@ -357,7 +393,9 @@ document.getElementById('searchButton').addEventListener('click', function() {
     forecastResults.classList.remove('hidden');
     vibeResults.classList.add('hidden')
     forecastTab.classList.add('is-active');
-    vibeTab.classList.remove('is-active')
+    vibeTab.classList.remove('is-active');
+    recentSearches.classList.remove(`hidden`);
+    searchPrompt.classList.add('hidden');
 });
 
 // Results tabs for Vibe and Forecast
@@ -376,6 +414,19 @@ document.addEventListener('DOMContentLoaded', () => {
         vibeResults.classList.add('hidden');
         vibeTab.classList.remove('is-active');
     });
+    
+});
+
+// Event listener for reset search button
+document.addEventListener('DOMContentLoaded', () => {
+
+    const resetSearchButton = document.getElementById('resetSearchButton');
+    if (resetSearchButton) {
+        resetSearchButton.addEventListener('click', () => {
+            window.location.href = 'https://wilsacker.github.io/Vibes-Cast/';
+        });
+    }
+
 });
 
     // Panel tabs functionality
@@ -419,3 +470,4 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Create function to create panels. Needs whatever object going into the Panel //
+
