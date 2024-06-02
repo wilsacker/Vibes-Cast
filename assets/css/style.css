@@ -28,15 +28,22 @@ button:hover {
     background-color: #63c05e;
     color: #9d55a5;
   }
+  
 
-  
-  
   button:active {
     box-shadow:10px 5px 5px   #9d55a5;
   }
-  
-  
-  
+
+#openModal {
+    border: 50px;
+    padding: 10px 10px 10px 10px;
+    flex-wrap: auto;
+    justify-content: space-between;
+}  
+
+#openModal :hover {
+    background-color: #03D1B2;
+}
 
 .weather-card {
   margin: 0 0 20px 0;
@@ -50,7 +57,7 @@ button:hover {
 }
 
 .weather-card:hover{
-    background-color:  #9d55a5;
+    background-color: #03D1B2;
 }
 
 .hidden {

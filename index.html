@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<!-- add modal with about me -->
-
   <!-- add local storage -->
 
 <head>
@@ -21,7 +19,6 @@
                     VibesCast🎧
                 </h1>
             </a>
-            <!-- Add an id to the navbar-burger -->
             <a role="button" id="navbarBurger" class="navbar-burger" aria-label="menu" aria-expanded="false">
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
@@ -29,11 +26,11 @@
                 <span aria-hidden="true"></span>
             </a>
         </div>
-        <!-- Add a div for the dropdown menu -->
+        <!-- Div for the dropdown menu -->
         <div id="dropdownMenu" class="navbar-menu">
             <div class="navbar-start">
-                <!-- Add your dropdown menu items here -->
-                <a class="navbar-item" id="aboutuslink" href="#">About Us</a>
+                <!-- Dropdown menu items  -->
+                <button id="openModal" class="button is-primary" href="#">About Us</button>
             </div>
         </div>
     </nav>
@@ -151,28 +148,29 @@
                 </div>
             </div>
         </div>
-    </main>
-
-    <!-- Modal Code -->
-
-    <div class="modal" id="myModal">
+    </div>
+     <!-- Modal Code -->
+     <div class="modal" id="myModal">
         <div class="modal-background"></div>
         <div class="modal-card">
-          <header class="modal-card-head">
-            <p class="modal-card-title">Modal title</p>
-            <button class="delete" aria-label="close"></button>
-          </header>
-          <section class="modal-card-body"> 
-            <!-- Content ... -->
-          </section>
-          <footer class="modal-card-foot">
-            <div class="buttons">
-              <button class="button is-success">Save changes</button>
-              <button class="button">Cancel</button>
+            <header class="modal-card-head">
+                <p class="modal-card-title">About Us</p>
+            <button id="closeModal" class="delete" aria-label="close"></button>
+            </header>
+            <section class="modal-card-body"> 
+                <!-- Content ... -->
+                <span>Hello, welcome to VibesCast!</span>
+            </section>
+            <footer class="modal-card-foot">
+             <div class="buttons">
+                <button class="button is-success">Save changes</button>
+                <button class="button">Cancel</button>
+
             </div>
-          </footer>
-        </div>
-      </div>
+        </footer>
+    </div>
+</main>
+
 
     <script src="./assets/js/index.js"></script>
 </body>

@@ -378,52 +378,44 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+    // Panel tabs functionality
+    const panelTabs = document.getElementsByClassName('panel-tabs')[0].getElementsByTagName('a');
+    for (let i = 0; i < panelTabs.length; i++) {
+        panelTabs[i].addEventListener('click', () => {
+            for (let j = 0; j < panelTabs.length; j++) {
+                panelTabs[j].classList.remove('is-active');
+            }
+            panelTabs[i].classList.add('is-active');
 
-// Modal Listener Event
+            if (panelTabs[i].id === 'forecastTab') {
+                document.getElementById('weatherResults').classList.remove('hidden');
+                document.getElementById('vibeResults').classList.add('hidden');
+            } else if (panelTabs[i].id === 'vibeTab') {
+                document.getElementById('vibeResults').classList.remove('hidden');
+                document.getElementById('weatherResults').classList.add('hidden');
+            }
+        });
+    }
+    // Modal Listener Event
+    document.addEventListener('DOMContentLoaded', () => {
+        const modal = document.getElementById('myModal');
+        const openModalButton = document.getElementById('openModal');
+        const closeModalButtons = modal.querySelectorAll('.delete, .button');
 
-// document.addEventListener('DOMContentLoaded', () => {
-//     const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+        openModalButton.addEventListener('click', () => {
+            modal.classList.add('is-active');
+        });
 
-//     if ($navbarBurgers.length > 0) {
-//         $navbarBurgers.forEach(el => {
-//             el.addEventListener('click', () => {
-//                 const target = el.dataset.target;
-//                 const $target = document.getElementById(target);
+        closeModalButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                modal.classList.remove('is-active');
+            });
+        });
 
-//                 el.classList.toggle('is-active');
-//                 $target.classList.toggle('is-active');
-//             });
-//         });
-//     }
-
-//     // Modal functionality
-//     const openModal = () => {
-//         document.getElementById('myModal').classList.add('is-active');
-//     };
-
-//     const closeModal = () => {
-//         document.getElementById('myModal').classList.remove('is-active');
-//     };
-
-//     document.getElementById('aboutUsLink').addEventListener('click', openModal);
-//     document.getElementById('closeModal').addEventListener('click', closeModal);
-//     document.getElementById('cancelButton').addEventListener('click', closeModal);
-
-//     // Panel tabs functionality
-//     document.querySelectorAll('.panel-tabs a').forEach(tab => {
-//         tab.addEventListener('click', () => {
-//             document.querySelectorAll('.panel-tabs a').forEach(t => t.classList.remove('is-active'));
-//             tab.classList.add('is-active');
-
-//             if (tab.id === 'forecastTab') {
-//                 document.getElementById('weatherResults').classList.remove('hidden');
-//                 document.getElementById('vibeResults').classList.add('hidden');
-//             } else if (tab.id === 'vibeTab') {
-//                 document.getElementById('vibeResults').classList.remove('hidden');
-//                 document.getElementById('weatherResults').classList.add('hidden');
-//             }
-//         });
-//     });
-// });
+    // Close modal when clicking on the modal background
+    modal.querySelector('.modal-background').addEventListener('click', () => {
+        modal.classList.remove('is-active');
+    });
+});
 
 // Create function to create panels. Needs whatever object going into the Panel //
