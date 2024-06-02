@@ -1,7 +1,7 @@
 const vibeTab = document.getElementById('vibeTab');
-    const forecastTab = document.getElementById('forecastTab');
-    const vibeResults = document.getElementById('vibeResults');
-    const forecastResults = document.getElementById('weatherResults');
+const forecastTab = document.getElementById('forecastTab');
+const vibeResults = document.getElementById('vibeResults');
+const forecastResults = document.getElementById('weatherResults');
 
 // Open-meteo Starting guide
 
@@ -139,6 +139,8 @@ function getCityCoordinates(city) {
                 const latitude = data[0].lat;
                 const longitude = data[0].lon;
                 getWeatherData(latitude, longitude);
+                saveSearch(city)
+                displayRecentSearches()
             } else {
                 document.getElementById('weatherResults').innerHTML = 'City not found.';
             }
@@ -157,9 +159,6 @@ function getWeatherData(lat, lon) {
             console.log(data)
         })
         .catch(error => console.error('Error fetching weather data:', error));
-
-        
-  
 }
 
 // this function takes the default value unit celsius in open-meteo api and converts it to farenheit unit
@@ -211,7 +210,36 @@ function displayWeatherData(data) {
 // }
 
 
+// Function to save search to local storage
+function saveSearch(city) {
+    let searches = JSON.parse(localStorage.getItem('recentSearches')) || []; // Initialize as empty array if null
+    if (!searches.includes(city)) {
+        searches.push(city);
+        // Keep only the latest 5 searches
+        if (searches.length > 5) {
+            searches.shift();
+        }
+        localStorage.setItem('recentSearches', JSON.stringify(searches));
+    }
+}
 
+// Function to display recent searches
+function displayRecentSearches() {
+    const localStorageDiv = document.getElementById('LocalStorage');
+    localStorageDiv.innerHTML = '';
+
+    let searches = JSON.parse(localStorage.getItem('recentSearches')) || [];
+    searches.forEach(city => {
+        const searchItem = document.createElement('div');
+        searchItem.className = 'search-item';
+        searchItem.innerHTML = city;
+        searchItem.addEventListener('click', () => {
+            document.getElementById('cityInput').value = city;
+            getCityCoordinates(city);
+        });
+        localStorageDiv.appendChild(searchItem);
+    });
+}
 
 
 // const weatherCodes = {
@@ -376,7 +404,21 @@ document.addEventListener('DOMContentLoaded', () => {
         vibeResults.classList.add('hidden');
         vibeTab.classList.remove('is-active');
     });
+    
 });
+
+// Event listener for reset search button
+document.addEventListener('DOMContentLoaded', () => {
+
+    const resetSearchButton = document.getElementById('resetSearchButton');
+    if (resetSearchButton) {
+        resetSearchButton.addEventListener('click', () => {
+            window.location.href = 'https://wilsacker.github.io/Vibes-Cast/';
+        });
+    }
+
+});
+
 
     // Panel tabs functionality
     const panelTabs = document.getElementsByClassName('panel-tabs')[0].getElementsByTagName('a');
@@ -419,3 +461,4 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Create function to create panels. Needs whatever object going into the Panel //
+
