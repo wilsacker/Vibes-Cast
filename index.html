@@ -1,27 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<!-- add modal with about me -->
-
-<!-- <div class="modal">
-    <div class="modal-background"></div>
-    <div class="modal-card">
-      <header class="modal-card-head">
-        <p class="modal-card-title">Modal title</p>
-        <button class="delete" aria-label="close"></button>
-      </header>
-      <section class="modal-card-body"> -->
-        <!-- Content ... -->
-      <!-- </section>
-      <footer class="modal-card-foot">
-        <div class="buttons">
-          <button class="button is-success">Save changes</button>
-          <button class="button">Cancel</button>
-        </div>
-      </footer>
-    </div>
-  </div> -->
-
   <!-- add local storage -->
 
 <head>
@@ -40,21 +19,18 @@
                     VibesCast🎧
                 </h1>
             </a>
-            <!-- Add an id to the navbar-burger -->
-            <a id="navbarBurger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <a role="button" id="navbarBurger" class="navbar-burger" aria-label="menu" aria-expanded="false">
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
             </a>
         </div>
-        <!-- Add a div for the dropdown menu -->
+        <!-- Div for the dropdown menu -->
         <div id="dropdownMenu" class="navbar-menu">
             <div class="navbar-start">
-                <!-- Add your dropdown menu items here -->
-                <a class="navbar-item" href="#">Option 1</a>
-                <a class="navbar-item" href="#">Option 2</a>
-                <a class="navbar-item" href="#">Option 3</a>
+                <!-- Dropdown menu items  -->
+                <button id="openModal" class="button" href="#">About Us</button>
             </div>
         </div>
     </nav>
@@ -71,7 +47,7 @@
                         <div class="field is-grouped">
                             <p class="control is-expanded">
                               <!-- changed id to cityInput -->
-                                <input class="input" type="text" placeholder="Search Location" id="cityInput">
+                                <input class="input" type="text" placeholder="Search City" id="cityInput">
                             </p>
                             <p class="control">
                                 <button class="button is-info" id="searchButton">
@@ -172,7 +148,35 @@
                 </div>
             </div>
         </div>
-    </main>
+    </div>
+     <!-- Modal Code -->
+     <div class="modal" id="myModal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p class="modal-card-title">About Us</p>
+            <button id="closeModal" class="delete" aria-label="close"></button>
+            </header>
+            <section class="modal-card-body"> 
+                <!-- Content ... -->
+                <h1 id="welcomeToVibesCast" class="title">Hello, welcome to VibesCast!</h1>
+                <p class="modalText">First: Search A City</p>
+                <p class="modalText">Second: Check The Forecast</p>
+                <p class="modalText">Last: Pick a Playlist and Vibe!</p>
+                <p id="weHadFun">Welcome to VibesCast! We're a team of four friends with a shared passion for music, weather, and bringing a little extra joy to your daily routine. Our site combines the practical with the whimsical: offering you not just the weather forecast, but also the perfect playlist to match it.</p>
+                <p id="weHadFun">Ever found yourself wishing you had the ideal soundtrack for a rainy day, a sunny afternoon, or a snowy commute? We did too! That's why we created VibesCast. Whether you're gearing up for a jog in the park, bracing for a downpour, or simply looking for tunes to brighten a gloomy day, we've got you covered.</p>
+                <p id="weHadFun">Our goal is to make your daily journey a bit more enjoyable, no matter what the skies have in store. So, go ahead, search for your city, check the forecast, and discover the perfect playlist to complement your weather. Here's to good vibes and great music!</p>
+                <p id="weHadFun">Enjoy the ride with VibesCast!</p>
+            </section>
+            <footer class="modal-card-foot">
+             <div class="buttons">
+                <!-- <button class="button is-success">Save & Exit</button>
+                <button class="button">Close</button> -->
+            </div>
+        </footer>
+    </div>
+</main>
+
 
     <script src="./assets/js/index.js"></script>
 </body>

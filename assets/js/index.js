@@ -236,21 +236,6 @@ function displayWeatherData(data) {
 //     searchApi(query, format);
 //   }
 
-document.addEventListener('DOMContentLoaded', function () {
-    // Get the navbar burger element
-    const navbarBurger = document.getElementById('navbarBurger');
-
-    // Get the dropdown menu element
-    const dropdownMenu = document.getElementById('dropdownMenu');
-
-    // Add a click event listener to the navbar burger
-    navbarBurger.addEventListener('click', function () {
-        // Toggle the 'is-active' class on both the navbar-burger and the dropdown menu
-        navbarBurger.classList.toggle('is-active');
-        dropdownMenu.classList.toggle('is-active');
-    });
-});
-
 // API Spotify without HTML
 // This is for the person who will activate the API Spotify on their account
 
@@ -343,6 +328,23 @@ const APIController = (function() {
     }
 })();
 
+// Nav-burger click event listener
+
+document.addEventListener('DOMContentLoaded', function () {
+    // Get the navbar burger element
+    const navbarBurger = document.getElementById('navbarBurger');
+
+    // Get the dropdown menu element
+    const dropdownMenu = document.getElementById('dropdownMenu');
+
+    // Add a click event listener to the navbar burger
+    navbarBurger.addEventListener('click', function () {
+        // Toggle the 'is-active' class on both the navbar-burger and the dropdown menu
+        navbarBurger.classList.toggle('is-active');
+        dropdownMenu.classList.toggle('is-active');
+    });
+});
+
 // Search City
 document.getElementById('searchButton').addEventListener('click', function() {
     const cityName = document.getElementById('cityInput').value;
@@ -373,6 +375,46 @@ document.addEventListener('DOMContentLoaded', () => {
         forecastTab.classList.add('is-active');
         vibeResults.classList.add('hidden');
         vibeTab.classList.remove('is-active');
+    });
+});
+
+    // Panel tabs functionality
+    const panelTabs = document.getElementsByClassName('panel-tabs')[0].getElementsByTagName('a');
+    for (let i = 0; i < panelTabs.length; i++) {
+        panelTabs[i].addEventListener('click', () => {
+            for (let j = 0; j < panelTabs.length; j++) {
+                panelTabs[j].classList.remove('is-active');
+            }
+            panelTabs[i].classList.add('is-active');
+
+            if (panelTabs[i].id === 'forecastTab') {
+                document.getElementById('weatherResults').classList.remove('hidden');
+                document.getElementById('vibeResults').classList.add('hidden');
+            } else if (panelTabs[i].id === 'vibeTab') {
+                document.getElementById('vibeResults').classList.remove('hidden');
+                document.getElementById('weatherResults').classList.add('hidden');
+            }
+        });
+    }
+    // Modal Listener Event
+    document.addEventListener('DOMContentLoaded', () => {
+        const modal = document.getElementById('myModal');
+        const openModalButton = document.getElementById('openModal');
+        const closeModalButtons = modal.querySelectorAll('.delete, .button');
+
+        openModalButton.addEventListener('click', () => {
+            modal.classList.add('is-active');
+        });
+
+        closeModalButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                modal.classList.remove('is-active');
+            });
+        });
+
+    // Close modal when clicking on the modal background
+    modal.querySelector('.modal-background').addEventListener('click', () => {
+        modal.classList.remove('is-active');
     });
 });
 
