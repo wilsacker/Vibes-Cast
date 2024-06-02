@@ -34,6 +34,7 @@ button:hover {
 #openModal {
     border: 50px;
     padding: 10px 10px 10px 10px;
+    margin: 10px 10px 10px 10px;
     flex-wrap: auto;
     justify-content: space-between;
 }  
@@ -69,6 +70,26 @@ h1 {
     display: block;
 }
 
+#myModal {
+    padding: 10px 50px 10px 50px;
+    text-align: center;
+}
+.modal-card-title {
+    font-weight: bold;
+}
+
+.modalText {
+    padding: 2%;
+}
+
+#weHadFun {
+    font-weight: bolder;
+    padding-top: 3%;
+}
+
+#welcomeToVibesCast {
+    font-style: italic;
+}
 
 /* Main Starts Here */
 
