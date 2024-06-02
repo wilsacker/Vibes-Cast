@@ -236,6 +236,100 @@ function displayWeatherData(data) {
 //     searchApi(query, format);
 //   }
 
+// API Spotify without HTML
+// This is for the person who will activate the API Spotify on their account
+
+// You get clientId and clientSecret during registation
+const APIController = (function() {
+    const clientId = "";
+    const clientSecret = "";
+
+    // Each https is from the Spotify API URL. The token will give us actual playlists
+    const _getToken = async () => {
+        const result = await fetch('https://spotify.com/?apitoken', {
+            method: 'POST',
+            headers: {
+                'Content-Type' : 'application/x-www-form-urlencoded',
+                'Authorization' : 'Basic' + btoa(clientId + ':' + clientSecret)
+            },
+            body: 'grant_type=client_credentials'
+        });
+
+        const data = await result.json();
+        return data.access_token;
+    }
+    
+    // This gives us a list of catergories
+    const _getGenres = async (token) => {
+        const result = await fetch('https://spotify.com/v1/browse/categories?', {
+            method: 'GET',
+            headers: { 'Authorization' : 'Bearer' + token}
+        });
+
+        const data = await result.json();
+        return data.categories.items;
+    }
+
+    // This gives us a list of catergories playlist
+    const _getPlaylistByGenre = async (token, genreId) => {
+        const limit = 10;
+
+        const result = await fetch('https://spotify.com/?browse/playlist', {
+            method: 'GET',
+            headers: { 'Authorization' : 'Bearer' + token}
+        });
+
+        const data = await resultjson();
+        return data.categories.items;
+    }
+
+    // This gives us items of a playlist
+    const _getTracks = async (token, tracksEndPoint) => {
+        const limit = 10;
+
+        const result = await fetch('${tracksEndPoint}?limit=${limit}', {
+            method: 'GET',
+            headers: { 'Authorization' : 'Bearer' + token}
+
+        });
+
+        const data = await resultjson();
+        return data.items;
+    }
+
+    // This gives us a track
+    const _getTrack = async (token, tracksEndPoint) => {
+        
+        const result = await fetch('${tracksEndPoint}', {
+            method: 'GET',
+            headers: { 'Authorization' : 'Bearer' + token}
+        });
+
+        const data = await resultjson();
+        return data;
+    }
+
+    return {
+        getToken() {
+            return _getToken();
+        },
+        getGenres(token) {
+            return _getGenres(token);
+        },
+        getPlaylistByGenre(token, genreId) {
+            return _getPlaylistByGenre(token, genreId); 
+        },
+        getTracks(token, tracksEndPoint) {
+            return _getTracks(token, tracksEndPoint);
+        },
+        getTrack(token, tracksEndPoint) {
+            return _getTrack(token, tracksEndPoint);
+        }
+    }
+})();
+
+// Nav-burger click event listener
+
 document.addEventListener('DOMContentLoaded', function () {
     // Get the navbar burger element
     const navbarBurger = document.getElementById('navbarBurger');
@@ -281,6 +375,46 @@ document.addEventListener('DOMContentLoaded', () => {
         forecastTab.classList.add('is-active');
         vibeResults.classList.add('hidden');
         vibeTab.classList.remove('is-active');
+    });
+});
+
+    // Panel tabs functionality
+    const panelTabs = document.getElementsByClassName('panel-tabs')[0].getElementsByTagName('a');
+    for (let i = 0; i < panelTabs.length; i++) {
+        panelTabs[i].addEventListener('click', () => {
+            for (let j = 0; j < panelTabs.length; j++) {
+                panelTabs[j].classList.remove('is-active');
+            }
+            panelTabs[i].classList.add('is-active');
+
+            if (panelTabs[i].id === 'forecastTab') {
+                document.getElementById('weatherResults').classList.remove('hidden');
+                document.getElementById('vibeResults').classList.add('hidden');
+            } else if (panelTabs[i].id === 'vibeTab') {
+                document.getElementById('vibeResults').classList.remove('hidden');
+                document.getElementById('weatherResults').classList.add('hidden');
+            }
+        });
+    }
+    // Modal Listener Event
+    document.addEventListener('DOMContentLoaded', () => {
+        const modal = document.getElementById('myModal');
+        const openModalButton = document.getElementById('openModal');
+        const closeModalButtons = modal.querySelectorAll('.delete, .button');
+
+        openModalButton.addEventListener('click', () => {
+            modal.classList.add('is-active');
+        });
+
+        closeModalButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                modal.classList.remove('is-active');
+            });
+        });
+
+    // Close modal when clicking on the modal background
+    modal.querySelector('.modal-background').addEventListener('click', () => {
+        modal.classList.remove('is-active');
     });
 });
 

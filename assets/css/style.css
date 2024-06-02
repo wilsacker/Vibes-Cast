@@ -1,13 +1,11 @@
- body {
+ /* body {
     background-color: #14161A;
     font-family: Arial, Helvetica, sans-serif
-    font
-    
+}  */
 
-} 
+/* Nav Starts Here */
 
 .navbar-burger
-/* Nav Starts Here */
 
 
 .title {
@@ -16,7 +14,6 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    
 }
 
 
@@ -28,15 +25,27 @@ button:hover {
     background-color: #63c05e;
     color: #9d55a5;
   }
+  
 
-  
-  
   button:active {
     box-shadow:10px 5px 5px   #9d55a5;
   }
-  
-  
-  
+
+#openModal {
+    border: 50px;
+    padding: 10px 10px 10px 10px;
+    margin: 10px 10px 10px 10px;
+    flex-wrap: auto;
+    justify-content: space-between;
+}  
+
+#openModal :hover {
+    background-color: #03D1B2;
+}
+
+h1 {
+    font-size: larger;
+}
 
 .weather-card {
   margin: 0 0 20px 0;
@@ -50,7 +59,7 @@ button:hover {
 }
 
 .weather-card:hover{
-    background-color:  #9d55a5;
+    background-color: #03D1B2;
 }
 
 .hidden {
@@ -61,7 +70,26 @@ button:hover {
     display: block;
 }
 
+#myModal {
+    padding: 10px 50px 10px 50px;
+    text-align: center;
+}
+.modal-card-title {
+    font-weight: bold;
+}
 
+.modalText {
+    padding: 2%;
+}
+
+#weHadFun {
+    font-weight: bolder;
+    padding-top: 3%;
+}
+
+#welcomeToVibesCast {
+    font-style: italic;
+}
 
 /* Main Starts Here */
 
