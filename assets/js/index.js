@@ -232,9 +232,12 @@ function displayRecentSearches() {
     
     // Reverse the searches array to show latest first
     searches.forEach(city => {
-        const searchItem = document.createElement('div');
-        searchItem.className = 'search-item';
-        searchItem.innerHTML = city;
+        const searchItem = document.createElement('a');
+        searchItem.className = 'panel-block';
+        searchItem.innerHTML = `
+            <span class="panel-icon">
+                <i class="fas fa-search" aria-hidden="true"></i>
+            </span>${city}`;
         searchItem.addEventListener('click', () => {
             document.getElementById('cityInput').value = city;
             getCityCoordinates(city);
@@ -242,6 +245,7 @@ function displayRecentSearches() {
         localStorageDiv.appendChild(searchItem);
     });
 }
+
 
 
 
@@ -422,7 +426,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 });
-
 
     // Panel tabs functionality
     const panelTabs = document.getElementsByClassName('panel-tabs')[0].getElementsByTagName('a');
