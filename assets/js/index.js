@@ -236,21 +236,6 @@ function displayWeatherData(data) {
 //     searchApi(query, format);
 //   }
 
-document.addEventListener('DOMContentLoaded', function () {
-    // Get the navbar burger element
-    const navbarBurger = document.getElementById('navbarBurger');
-
-    // Get the dropdown menu element
-    const dropdownMenu = document.getElementById('dropdownMenu');
-
-    // Add a click event listener to the navbar burger
-    navbarBurger.addEventListener('click', function () {
-        // Toggle the 'is-active' class on both the navbar-burger and the dropdown menu
-        navbarBurger.classList.toggle('is-active');
-        dropdownMenu.classList.toggle('is-active');
-    });
-});
-
 // API Spotify without HTML
 // This is for the person who will activate the API Spotify on their account
 
@@ -343,6 +328,23 @@ const APIController = (function() {
     }
 })();
 
+// Nav-burger click event listener
+
+document.addEventListener('DOMContentLoaded', function () {
+    // Get the navbar burger element
+    const navbarBurger = document.getElementById('navbarBurger');
+
+    // Get the dropdown menu element
+    const dropdownMenu = document.getElementById('dropdownMenu');
+
+    // Add a click event listener to the navbar burger
+    navbarBurger.addEventListener('click', function () {
+        // Toggle the 'is-active' class on both the navbar-burger and the dropdown menu
+        navbarBurger.classList.toggle('is-active');
+        dropdownMenu.classList.toggle('is-active');
+    });
+});
+
 // Search City
 document.getElementById('searchButton').addEventListener('click', function() {
     const cityName = document.getElementById('cityInput').value;
@@ -379,49 +381,49 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Modal Listener Event
 
-document.addEventListener('DOMContentLoaded', () => {
-    const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+// document.addEventListener('DOMContentLoaded', () => {
+//     const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
 
-    if ($navbarBurgers.length > 0) {
-        $navbarBurgers.forEach(el => {
-            el.addEventListener('click', () => {
-                const target = el.dataset.target;
-                const $target = document.getElementById(target);
+//     if ($navbarBurgers.length > 0) {
+//         $navbarBurgers.forEach(el => {
+//             el.addEventListener('click', () => {
+//                 const target = el.dataset.target;
+//                 const $target = document.getElementById(target);
 
-                el.classList.toggle('is-active');
-                $target.classList.toggle('is-active');
-            });
-        });
-    }
+//                 el.classList.toggle('is-active');
+//                 $target.classList.toggle('is-active');
+//             });
+//         });
+//     }
 
-    // Modal functionality
-    const openModal = () => {
-        document.getElementById('myModal').classList.add('is-active');
-    };
+//     // Modal functionality
+//     const openModal = () => {
+//         document.getElementById('myModal').classList.add('is-active');
+//     };
 
-    const closeModal = () => {
-        document.getElementById('myModal').classList.remove('is-active');
-    };
+//     const closeModal = () => {
+//         document.getElementById('myModal').classList.remove('is-active');
+//     };
 
-    document.getElementById('aboutUsLink').addEventListener('click', openModal);
-    document.getElementById('closeModal').addEventListener('click', closeModal);
-    document.getElementById('cancelButton').addEventListener('click', closeModal);
+//     document.getElementById('aboutUsLink').addEventListener('click', openModal);
+//     document.getElementById('closeModal').addEventListener('click', closeModal);
+//     document.getElementById('cancelButton').addEventListener('click', closeModal);
 
-    // Panel tabs functionality
-    document.querySelectorAll('.panel-tabs a').forEach(tab => {
-        tab.addEventListener('click', () => {
-            document.querySelectorAll('.panel-tabs a').forEach(t => t.classList.remove('is-active'));
-            tab.classList.add('is-active');
+//     // Panel tabs functionality
+//     document.querySelectorAll('.panel-tabs a').forEach(tab => {
+//         tab.addEventListener('click', () => {
+//             document.querySelectorAll('.panel-tabs a').forEach(t => t.classList.remove('is-active'));
+//             tab.classList.add('is-active');
 
-            if (tab.id === 'forecastTab') {
-                document.getElementById('weatherResults').classList.remove('hidden');
-                document.getElementById('vibeResults').classList.add('hidden');
-            } else if (tab.id === 'vibeTab') {
-                document.getElementById('vibeResults').classList.remove('hidden');
-                document.getElementById('weatherResults').classList.add('hidden');
-            }
-        });
-    });
-});
+//             if (tab.id === 'forecastTab') {
+//                 document.getElementById('weatherResults').classList.remove('hidden');
+//                 document.getElementById('vibeResults').classList.add('hidden');
+//             } else if (tab.id === 'vibeTab') {
+//                 document.getElementById('vibeResults').classList.remove('hidden');
+//                 document.getElementById('weatherResults').classList.add('hidden');
+//             }
+//         });
+//     });
+// });
 
 // Create function to create panels. Needs whatever object going into the Panel //
