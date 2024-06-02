@@ -3,25 +3,6 @@
 
 <!-- add modal with about me -->
 
-<!-- <div class="modal">
-    <div class="modal-background"></div>
-    <div class="modal-card">
-      <header class="modal-card-head">
-        <p class="modal-card-title">Modal title</p>
-        <button class="delete" aria-label="close"></button>
-      </header>
-      <section class="modal-card-body"> -->
-        <!-- Content ... -->
-      <!-- </section>
-      <footer class="modal-card-foot">
-        <div class="buttons">
-          <button class="button is-success">Save changes</button>
-          <button class="button">Cancel</button>
-        </div>
-      </footer>
-    </div>
-  </div> -->
-
   <!-- add local storage -->
 
 <head>
@@ -41,7 +22,7 @@
                 </h1>
             </a>
             <!-- Add an id to the navbar-burger -->
-            <a id="navbarBurger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <a role="button" class="navbar-burger" class="navbar-burger" aria-label="menu" aria-expanded="false">
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
@@ -52,9 +33,7 @@
         <div id="dropdownMenu" class="navbar-menu">
             <div class="navbar-start">
                 <!-- Add your dropdown menu items here -->
-                <a class="navbar-item" href="#">Option 1</a>
-                <a class="navbar-item" href="#">Option 2</a>
-                <a class="navbar-item" href="#">Option 3</a>
+                <a class="navbar-item" id="aboutuslink" href="#">About Us</a>
             </div>
         </div>
     </nav>
@@ -173,6 +152,27 @@
             </div>
         </div>
     </main>
+
+    <!-- Modal Code -->
+
+    <div class="modal" id="myModal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+          <header class="modal-card-head">
+            <p class="modal-card-title">Modal title</p>
+            <button class="delete" aria-label="close"></button>
+          </header>
+          <section class="modal-card-body"> 
+            <!-- Content ... -->
+          </section>
+          <footer class="modal-card-foot">
+            <div class="buttons">
+              <button class="button is-success">Save changes</button>
+              <button class="button">Cancel</button>
+            </div>
+          </footer>
+        </div>
+      </div>
 
     <script src="./assets/js/index.js"></script>
 </body>
