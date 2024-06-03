@@ -9,14 +9,14 @@ const resetSearchButton = document.getElementById('resetSearchButton');
 
 // this function is using  Nominatim API to get latitudes and longitudes based on a city search. we get the const values lat,lon from the data.
 function getCityCoordinates(city) {
-    const apiUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${city}`;
+    const apiUrl = `https://geocoding-api.open-meteo.com/v1/search?name=${city}`;
 
     fetch(apiUrl)
         .then(response => response.json())
         .then(data => {
-            if (data.length > 0) {
-                const latitude = data[0].lat;
-                const longitude = data[0].lon;
+            if (data.results && data.results.length > 0) {
+                const latitude = data.results[0].latitude;
+                const longitude = data.results[0].longitude;
                 getWeatherData(latitude, longitude);
                 saveSearch(city)
                 displayRecentSearches()
@@ -38,46 +38,125 @@ function getWeatherData(lat, lon) {
             console.log("Weather Data: ", data)
         })
         .catch(error => console.error('Error fetching weather data:', error));
+
+
+
 }
 
 // this function takes the default value unit celsius in open-meteo api and converts it to farenheit unit
 function convertCelsiusToFahrenheit(celsius) {
-    return (celsius * 9/5) + 32;
+    return (celsius * 9 / 5) + 32;
+}
+
+function getWeatherIcon(weathercode) {
+    weathercode = Number(weathercode); // Convert to number
+
+    // if (isNaN(weathercode)) {
+    //     console.warn(`Invalid weathercode: ${weathercode}`);
+    //     return '???'; // Return default icon for invalid weathercode
+    // }
+    if (weathercode === 0 || weathercode === 1) {
+        return '☀️'; // Sun icon for clear or mainly clear sky
+    } else if (weathercode === 2 || weathercode === 3 || weathercode === 45) {
+        return '☁️'; // Cloud icon for partly cloudy, overcast, or fog
+    } else if ([51, 53, 55, 61, 63, 65, 66, 67, 81, 82, 85, 86, 95, 96, 99].includes(weathercode)) {
+        return '🌧️'; // Rain icon for various rain and drizzle conditions
+    } else {
+        console.warn(`Unknown weathercode: ${weathercode}`); // Warn if the weathercode is not recognized
+        return '❓'; // Default icon for any other conditions
+
+    }
+}
+
+function getWeatherIconAndGenre(weathercode) {
+    weathercode = Number(weathercode); // Convert to number
+    if (weathercode === 0 || weathercode === 1) {
+        return { icon: ':sunny:', genre: 'electronic' }; // Sun icon and electronic music for clear or mainly clear sky
+    } else if (weathercode === 2 || weathercode === 3 || weathercode === 45) {
+        return { icon: ':cloud:', genre: 'alternative' }; // Cloud icon and alternative music for partly cloudy, overcast, or fog
+    } else if ([51, 53, 55, 61, 63, 65, 66, 67, 81, 82, 85, 86, 95, 96, 99].includes(weathercode)) {
+        return { icon: ':rain_cloud:', genre: 'jazz' }; // Rain icon and jazz music for various rain and drizzle conditions
+    } else {
+        console.warn(`Unknown weathercode: ${weathercode}`); // Warn if the weathercode is not recognized
+        return { icon: ':question:', genre: 'pop' }; // Default icon and pop music for any other conditions
+    }
 }
 
 // a function to display the data fetched  and filtered by the 'daily' parameter. it should be reworked to create a card for each day/forecast. 
 // the "weather code" value from the "daily" parameter should be utilized for pairing with Spotify api playlist values.
 function displayWeatherData(data) {
+
     const weatherResults = document.getElementById('weatherResults');
     weatherResults.innerHTML = '';
 
     // local storage for the 'daily' values.
-    localStorage.setItem('cityWeather', JSON.stringify(data.daily));
-    
+    localStorage.setItem('cityWeather', JSON.stringify(data));
+
+
     const daily = data.daily;
+
+    const weatherIcon = getWeatherIcon(data.weathercode);
+
     for (let i = 0; i < daily.time.length; i++) {
-        const date = daily.time[i];
+        const date = dayjs(daily.time[i]).format('dddd D MMM'); // Format date using Day.js
         const maxTempC = daily.temperature_2m_max[i];
         const minTempC = daily.temperature_2m_min[i];
         const maxTempF = convertCelsiusToFahrenheit(maxTempC);
         const minTempF = convertCelsiusToFahrenheit(minTempC);
         const weatherCode = daily.weathercode[i];
+        const genreData= getWeatherIconAndGenre(weatherCode)
+        getSpotifyData(genreData.genre)
         const sunrise = daily.sunrise[i];
         const sunset = daily.sunset[i];
+        // weatherCode = Number(weatherCode);
+
+
+        const weatherIcon = getWeatherIcon(weatherCode);
 
         // the temperature values are rounded to one decimal place with '.toFixed(1)'. This avoids displaying too many decimal places, which can be unnecessary 
         // and clutter the display.
         const weatherCard = document.createElement('div');
         weatherCard.className = 'weather-card';
         weatherCard.innerHTML = `
-            <h3>${date}</h3>
-            <p>Max Temp: ${maxTempF.toFixed(1)}°F</p>
-            <p>Min Temp: ${minTempF.toFixed(1)}°F</p>
-            <p>Weather Code: ${weatherCode}</p>
-            <p>Sunrise: ${sunrise}</p>
-            <p>Sunset: ${sunset}</p>
+            <h3><strong>${date}</strong></h3>
+            <p><strong>Max: ${maxTempF.toFixed(1)}°F</strong></p>
+            <p><strong>Min: ${minTempF.toFixed(1)}°F</strong></p>
+            <p><strong>Weather: ${weatherIcon}</strong></p>
+            <br>
         `;
-        
+        // <p>Sunrise: ${sunrise}</p>
+        //     <p>Sunset: ${sunset}</p>
+
+        const el0 = document.getElementById("daily-0")
+        el0.className = 'weather-card';
+        el0.innerHTML = `Weather:${weatherIcon}`;
+
+        const el1 = document.getElementById("daily-1")
+        el1.className = 'weather-card';
+        el1.innerHTML = `Weather:${weatherIcon}`;
+
+        const el2 = document.getElementById("daily-2")
+        el2.className = 'weather-card';
+        el2.innerHTML = `Weather:${weatherIcon}`;
+
+        const el3 = document.getElementById("daily-3")
+        el3.className = 'weather-card';
+        el3.innerHTML = `Weather:${weatherIcon}`;
+
+        const el4 = document.getElementById("daily-4")
+        el4.className = 'weather-card';
+        el4.innerHTML = `Weather:${weatherIcon}`;
+
+        const el5 = document.getElementById("daily-5")
+        el5.className = 'weather-card';
+        el5.innerHTML = `Weather:${weatherIcon}`;
+
+        const el6 = document.getElementById("daily-6")
+        // el6.className = 'weather-card';
+        el6.innerHTML = `Weather:${weatherIcon}`;
+
+
+        // const weatherIcon = getWeatherIcon(dayForecast.weathercode);
         weatherResults.appendChild(weatherCard);
     }
 }
