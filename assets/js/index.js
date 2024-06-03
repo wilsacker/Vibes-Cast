@@ -7,7 +7,7 @@ const searchPrompt = document.getElementById('searchPrompt')
 const searchBtn = document.getElementById('searchButton')
 const resetSearchButton = document.getElementById('resetSearchButton');
 
-// this function is using  Nominatim API to get latitudes and longitudes based on a city search. we get the const values lat,lon from the data.
+// Function to get city coordinates (lat, lon)
 function getCityCoordinates(city) {
     const apiUrl = `https://geocoding-api.open-meteo.com/v1/search?name=${city}`;
 
@@ -21,13 +21,12 @@ function getCityCoordinates(city) {
                 saveSearch(city)
                 displayRecentSearches()
             } else {
-                document.getElementById('weatherResults').innerHTML = 'City not found.';
+                forecastResults.innerHTML = 'City not found.';
             }
         })
         .catch(error => console.error('Error fetching city coordinates:', error));
 }
-// this function uses the lat,lon values as parameters to fetch weather data in Open-meteo api. it gets the response and 
-// converts it to json then it is passed to the following function as a parameter
+// Function uses (lat, lon) to get weather data using Open-Meteo API
 function getWeatherData(lat, lon) {
     const apiUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=temperature_2m_max,temperature_2m_min,precipitation_sum,weathercode,sunrise,sunset&timezone=auto`;
 
@@ -38,14 +37,11 @@ function getWeatherData(lat, lon) {
             console.log("Weather Data: ", data)
         })
         .catch(error => console.error('Error fetching weather data:', error));
-
-
-
 }
 
-// this function takes the default value unit celsius in open-meteo api and converts it to farenheit unit
+// Function to convert Celsius to Fahrenheit
 function convertCelsiusToFahrenheit(celsius) {
-    return (celsius * 9 / 5) + 32;
+    return (celsius * 9/5) + 32;
 }
 
 // Function to get weather icon and genre based on weather code. Maps weather codes to icons and music genres
@@ -62,7 +58,7 @@ function getWeatherIconAndGenre(weathercode) {
         return { icon: '❓', genre: 'pop' };
     }
 }
- 
+
 // Spotify API Functions
 async function getAccessToken(clientId, clientSecret) {
     const result = await fetch('https://accounts.spotify.com/api/token', {
@@ -116,10 +112,7 @@ function displaySpotifyPlaylist(playlist) {
     }
 }
 
-
-// a function to display the data fetched  and filtered by the 'daily' parameter. it should be reworked to create a card for each day/forecast. 
-// the "weather code" value from the "daily" parameter should be utilized for pairing with Spotify api playlist values.
-// Calls fetchSpotifyData to get Spotify playlists based on the genre for each day's weather.
+// Function to display weather data
 function displayWeatherData(data) {
     forecastResults.innerHTML = '';
 
@@ -297,4 +290,3 @@ searchBtn.addEventListener('click', function() {
         modal.classList.remove('is-active');
     });
 });
-
