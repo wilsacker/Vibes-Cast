@@ -48,54 +48,85 @@ function convertCelsiusToFahrenheit(celsius) {
     return (celsius * 9 / 5) + 32;
 }
 
-function getWeatherIcon(weathercode) {
-    weathercode = Number(weathercode); // Convert to number
-
-    // if (isNaN(weathercode)) {
-    //     console.warn(`Invalid weathercode: ${weathercode}`);
-    //     return '???'; // Return default icon for invalid weathercode
-    // }
+// Function to get weather icon and genre based on weather code. Maps weather codes to icons and music genres
+function getWeatherIconAndGenre(weathercode) {
+    weathercode = Number(weathercode);
     if (weathercode === 0 || weathercode === 1) {
-        return '☀️'; // Sun icon for clear or mainly clear sky
+        return { icon: '☀️', genre: 'dance electronic reggae afrobeat' };
     } else if (weathercode === 2 || weathercode === 3 || weathercode === 45) {
-        return '☁️'; // Cloud icon for partly cloudy, overcast, or fog
+        return { icon: '☁️', genre: 'alternative hip-hop indie ' };
     } else if ([51, 53, 55, 61, 63, 65, 66, 67, 81, 82, 85, 86, 95, 96, 99].includes(weathercode)) {
-        return '🌧️'; // Rain icon for various rain and drizzle conditions
+        return { icon: '🌧️', genre: 'jazz blues' };
     } else {
-        console.warn(`Unknown weathercode: ${weathercode}`); // Warn if the weathercode is not recognized
-        return '❓'; // Default icon for any other conditions
+        console.warn(`Unknown weathercode: ${weathercode}`);
+        return { icon: '❓', genre: 'pop' };
+    }
+}
+ 
+// Spotify API Functions
+async function getAccessToken(clientId, clientSecret) {
+    const result = await fetch('https://accounts.spotify.com/api/token', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Authorization': 'Basic ' + btoa(clientId + ':' + clientSecret)
+        },
+        body: 'grant_type=client_credentials'
+    });
 
+    const data = await result.json();
+    return data.access_token;
+}
+
+// Fetches playlists from Spotify based on the genre. Moved the definition of the fetchSpotifyData function above the displayWeatherData function so it is available when called.
+async function fetchSpotifyData(genre) {
+    const clientId = '85aa1b8ce49b49eb87d1cfe0ba9b3f96';
+    const clientSecret = '2dd9402bc04447cd917e5c5f513603a3';
+
+    try {
+        const accessToken = await getAccessToken(clientId, clientSecret);
+        const result = await fetch(`https://api.spotify.com/v1/search?q=genre:${genre}&type=playlist&limit=1`, {
+            method: 'GET',
+            headers: {
+                'Authorization': 'Bearer ' + accessToken
+            }
+        });
+
+        const data = await result.json();
+        displaySpotifyPlaylist(data.playlists.items[0]);
+    } catch (error) {
+        console.error('Error fetching Spotify data:', error);
     }
 }
 
-// function getWeatherIconAndGenre(weathercode) {
-//     weathercode = Number(weathercode); // Convert to number
-//     if (weathercode === 0 || weathercode === 1) {
-//         return { icon: ':sunny:', genre: 'electronic' }; // Sun icon and electronic music for clear or mainly clear sky
-//     } else if (weathercode === 2 || weathercode === 3 || weathercode === 45) {
-//         return { icon: ':cloud:', genre: 'alternative' }; // Cloud icon and alternative music for partly cloudy, overcast, or fog
-//     } else if ([51, 53, 55, 61, 63, 65, 66, 67, 81, 82, 85, 86, 95, 96, 99].includes(weathercode)) {
-//         return { icon: ':rain_cloud:', genre: 'jazz' }; // Rain icon and jazz music for various rain and drizzle conditions
-//     } else {
-//         console.warn(`Unknown weathercode: ${weathercode}`); // Warn if the weathercode is not recognized
-//         return { icon: ':question:', genre: 'pop' }; // Default icon and pop music for any other conditions
-//     }
-// }
+// Displays the fetched Spotify playlist in the vibeResults div.
+function displaySpotifyPlaylist(playlist) {
+    vibeResults.innerHTML = ''; // Clear previous results
+
+    if (playlist) {
+        const playlistDiv = document.createElement('div');
+        playlistDiv.innerHTML = `
+            <h2>${playlist.name}</h2>
+            <iframe src="https://open.spotify.com/embed/playlist/${playlist.id}" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+            <p><a href="${playlist.external_urls.spotify}" target="_blank">Listen on Spotify</a></p>
+        `;
+        vibeResults.appendChild(playlistDiv);
+    } else {
+        vibeResults.innerHTML = '<p>No playlist found.</p>';
+    }
+}
+
 
 // a function to display the data fetched  and filtered by the 'daily' parameter. it should be reworked to create a card for each day/forecast. 
 // the "weather code" value from the "daily" parameter should be utilized for pairing with Spotify api playlist values.
+// Calls fetchSpotifyData to get Spotify playlists based on the genre for each day's weather.
 function displayWeatherData(data) {
-
-    // const weatherResults = document.getElementById('weatherResults');
     forecastResults.innerHTML = '';
 
-    // local storage for the 'daily' values.
+    // Local storage for the 'daily' values
     localStorage.setItem('cityWeather', JSON.stringify(data));
 
-
     const daily = data.daily;
-
-    const weatherIcon = getWeatherIcon(data.weathercode);
 
     for (let i = 0; i < daily.time.length; i++) {
         const date = dayjs(daily.time[i]).format('dddd D MMM'); // Format date using Day.js
@@ -104,34 +135,21 @@ function displayWeatherData(data) {
         const maxTempF = convertCelsiusToFahrenheit(maxTempC);
         const minTempF = convertCelsiusToFahrenheit(minTempC);
         const weatherCode = daily.weathercode[i];
-        // const genreData= getWeatherIconAndGenre(weatherCode)
-        // getSpotifyData(genreData.genre)
-        const sunrise = daily.sunrise[i];
-        const sunset = daily.sunset[i];
-        // weatherCode = Number(weatherCode);
+        const { icon, genre } = getWeatherIconAndGenre(weatherCode);
 
-
-        const weatherIcon = getWeatherIcon(weatherCode);
-
-        // the temperature values are rounded to one decimal place with '.toFixed(1)'. This avoids displaying too many decimal places, which can be unnecessary 
-        // and clutter the display.
         const weatherCard = document.createElement('div');
         weatherCard.className = 'weather-card';
         weatherCard.innerHTML = `
             <h3><strong>${date}</strong></h3>
             <p><strong>Max: ${maxTempF.toFixed(1)}°F</strong></p>
             <p><strong>Min: ${minTempF.toFixed(1)}°F</strong></p>
-            <p><strong>Weather: ${weatherIcon}</strong></p>
+            <p><strong>Weather: ${icon}</strong></p>
             <br>
         `;
-        // <p>Sunrise: ${sunrise}</p>
-        //     <p>Sunset: ${sunset}</p>
+        forecastResults.appendChild(weatherCard);
 
-        
-
-
-        // const weatherIcon = getWeatherIcon(dayForecast.weathercode);
-        weatherResults.appendChild(weatherCard);
+        // Fetch and display Spotify data based on the genre
+        fetchSpotifyData(genre);
     }
 }
 
@@ -171,60 +189,6 @@ function displayRecentSearches() {
         localStorageDiv.appendChild(searchItem);
     });
 }
-
-
-//Spotify Api
-async function getAccessToken(clientId, clientSecret) {
-    const result = await fetch('https://accounts.spotify.com/api/token', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'Authorization': 'Basic ' + btoa(clientId + ':' + clientSecret)
-        },
-        body: 'grant_type=client_credentials'
-    });
-
-    const data = await result.json();
-    return data.access_token;
-}
-
-async function getJazzSongs(accessToken) {
-    const result = await fetch(`https://api.spotify.com/v1/search?q=genre:jazz&type=track&limit=5`, {
-        method: 'GET',
-        headers: {
-            'Authorization': 'Bearer ' + accessToken
-        }
-    });
-
-    const data = await result.json();
-    return data.tracks.items;
-}
-
-async function main(weatherCode) {
-    const clientId = '85aa1b8ce49b49eb87d1cfe0ba9b3f96';
-    const clientSecret = '2dd9402bc04447cd917e5c5f513603a3';
-
-    try {
-        const accessToken = await getAccessToken(clientId, clientSecret);
-        const jazzSongs = await getJazzSongs(accessToken);
-
-        // Display the list of jazz songs
-        const songsContainer = document.getElementById('songs');
-        jazzSongs.forEach((song, index) => {
-            const songDiv = document.createElement('div');
-            songDiv.innerHTML = `
-                <h2>${index + 1}. ${song.name} by ${song.artists[0].name}</h2>
-                <iframe src="https://open.spotify.com/embed/track/${song.id}" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
-                <p><a href="${song.external_urls.spotify}" target="_blank">Listen on Spotify</a></p>
-            `;
-            songsContainer.appendChild(songDiv);
-        });
-    } catch (error) {
-        console.error('Error:', error);
-    }
-}
-
-main();
 
 
 //================================================================================
