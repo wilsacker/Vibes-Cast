@@ -7,7 +7,7 @@ const searchPrompt = document.getElementById('searchPrompt')
 const searchBtn = document.getElementById('searchButton')
 const resetSearchButton = document.getElementById('resetSearchButton');
 
-// this function is using  Nominatim API to get latitudes and longitudes based on a city search. we get the const values lat,lon from the data.
+// Function to get city coordinates (lat, lon) using Nominatim API
 function getCityCoordinates(city) {
     const apiUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${city}`;
 
@@ -21,13 +21,12 @@ function getCityCoordinates(city) {
                 saveSearch(city)
                 displayRecentSearches()
             } else {
-                document.getElementById('weatherResults').innerHTML = 'City not found.';
+                forecastResults.innerHTML = 'City not found.';
             }
         })
         .catch(error => console.error('Error fetching city coordinates:', error));
 }
-// this function uses the lat,lon values as parameters to fetch weather data in Open-meteo api. it gets the response and 
-// converts it to json then it is passed to the following function as a parameter
+// Function uses (lat, lon) to get weather data using Open-Meteo API
 function getWeatherData(lat, lon) {
     const apiUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=temperature_2m_max,temperature_2m_min,precipitation_sum,weathercode,sunrise,sunset&timezone=auto`;
 
@@ -40,21 +39,52 @@ function getWeatherData(lat, lon) {
         .catch(error => console.error('Error fetching weather data:', error));
 }
 
-// this function takes the default value unit celsius in open-meteo api and converts it to farenheit unit
+// Function to convert Celsius to Fahrenheit
 function convertCelsiusToFahrenheit(celsius) {
     return (celsius * 9/5) + 32;
 }
 
-// a function to display the data fetched  and filtered by the 'daily' parameter. it should be reworked to create a card for each day/forecast. 
-// the "weather code" value from the "daily" parameter should be utilized for pairing with Spotify api playlist values.
+// Function to get weather icon based on weather code
+function getWeatherIcon(weathercode) {
+    weathercode = Number(weathercode);
+
+    if (weathercode === 0 || weathercode === 1) {
+        return '☀️'; // Sun icon for clear or mainly clear sky
+    } else if (weathercode === 2 || weathercode === 3 || weathercode === 45) {
+        return '☁️'; // Cloud icon for partly cloudy, overcast, or fog
+    } else if ([51, 53, 55, 61, 63, 65, 66, 67, 81, 82, 85, 86, 95, 96, 99].includes(weathercode)) {
+        return '🌧️'; // Rain icon for various rain and drizzle conditions
+    } else {
+        console.warn(`Unknown weathercode: ${weathercode}`); // Warn if the weathercode is not recognized
+        return '❓'; // Default icon for any other conditions
+    }
+}
+
+// Function to get weather icon and genre based on weather code
+function getWeatherIconAndGenre(weathercode) {
+    weathercode = Number(weathercode); // Convert to number
+    if (weathercode === 0 || weathercode === 1) {
+        return { icon: ':sunny:', genre: 'electronic' }; // Sun icon and electronic music for clear or mainly clear sky
+    } else if (weathercode === 2 || weathercode === 3 || weathercode === 45) {
+        return { icon: ':cloud:', genre: 'alternative' }; // Cloud icon and alternative music for partly cloudy, overcast, or fog
+    } else if ([51, 53, 55, 61, 63, 65, 66, 67, 81, 82, 85, 86, 95, 96, 99].includes(weathercode)) {
+        return { icon: ':rain_cloud:', genre: 'jazz' }; // Rain icon and jazz music for various rain and drizzle conditions
+    } else {
+        console.warn(`Unknown weathercode: ${weathercode}`); // Warn if the weathercode is not recognized
+        return { icon: ':question:', genre: 'pop' }; // Default icon and pop music for any other conditions
+    }
+}
+
+// Function to display weather data
 function displayWeatherData(data) {
     const weatherResults = document.getElementById('weatherResults');
     weatherResults.innerHTML = '';
 
-    // local storage for the 'daily' values.
+    // Store the 'daily' values in local storage
     localStorage.setItem('cityWeather', JSON.stringify(data.daily));
     
     const daily = data.daily;
+    
     for (let i = 0; i < daily.time.length; i++) {
         const date = daily.time[i];
         const maxTempC = daily.temperature_2m_max[i];
@@ -280,5 +310,3 @@ searchBtn.addEventListener('click', function() {
         modal.classList.remove('is-active');
     });
 });
-
-
