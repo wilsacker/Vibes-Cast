@@ -1,46 +1,50 @@
- /* body {
-    background-color: #14161A;
-    font-family: Arial, Helvetica, sans-serif
-}  */
-
-/* Nav Starts Here */
-
-.navbar-burger
-
-
-.title {
-    border: 25px;
-    padding: 10px 10px 10px 10px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+:root{
+    --light:#F5f5f5;
+    --dark:#343434;
+    --bulma: #9d55a5;
+    --vegeta:#03D1B2;
+    --piccolo:#63c05e;
+    --pad: 10px 10px 10px 10px;
 }
 
 
+/* Nav Starts Here */
+.title {
+    border: 25px;
+    padding: var(--pad);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    /* padding: 10px; */
+}
+
+
+/* Main Starts Here */
 .button{
     color: white;
 }
 
 button:hover {
-    background-color: #63c05e;
-    color: #9d55a5;
+    background-color: var(--piccolo);
+    color: var(--bulma);
   }
   
 
   button:active {
-    box-shadow:10px 5px 5px   #9d55a5;
+    box-shadow:10px 5px 5px var(--bulma);
   }
 
 #openModal {
     border: 50px;
-    padding: 10px 10px 10px 10px;
-    margin: 10px 10px 10px 10px;
+    padding: var(--pad);
+    margin: var(--pad);
     flex-wrap: auto;
     justify-content: space-between;
+    box-shadow: none;
 }  
 
 #openModal :hover {
-    background-color: #03D1B2;
+    background-color: var(--vegeta);
 }
 
 h1 {
@@ -49,21 +53,21 @@ h1 {
 
 #recentSearchesCard {
   
-  }  
+    }  
 
 .weather-card {
   margin: 0 0 20px 0;
   border: 3px solid black;
   border-radius: 5%;
   background-color: #343434;
-  color: whitesmoke;
+  color: #F5f5f5;
   display: flex;
   justify-content:space-evenly;
 
 }
 
 .weather-card:hover{
-    background-color: #03D1B2;
+    background-color: var(--vegeta);
 }
 
 .hidden {
@@ -95,7 +99,48 @@ h1 {
     font-style: italic;
 }
 
-/* Main Starts Here */
+#vibeResults {
+    padding: 20px;
+    background-color: #f8f8f8;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+#vibeResults h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    font-family: 'Helvetica Neue', sans-serif;
+    font-weight: bold;
+    color: #333;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+#vibeResults iframe {
+    width: 100%;
+    height: 380px; 
+    border: none;
+}
+
+#vibeResults p a {
+    color: #1db954;
+    text-decoration: none;
+}
+
+#vibeResults p a:hover {
+    text-decoration: underline;
+}
 
 
 /* Footer Starts Here */
+
+.footer {
+    padding: 10px;
+    text-align: center;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
