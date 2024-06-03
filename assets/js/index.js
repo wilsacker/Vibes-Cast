@@ -334,4 +334,3 @@ searchBtn.addEventListener('click', function() {
     });
 });
 
-
