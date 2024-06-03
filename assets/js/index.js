@@ -7,16 +7,16 @@ const searchPrompt = document.getElementById('searchPrompt')
 const searchBtn = document.getElementById('searchButton')
 const resetSearchButton = document.getElementById('resetSearchButton');
 
-// Function to get city coordinates (lat, lon) using Nominatim API
+// Function to get city coordinates (lat, lon)
 function getCityCoordinates(city) {
-    const apiUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${city}`;
+    const apiUrl = `https://geocoding-api.open-meteo.com/v1/search?name=${city}`;
 
     fetch(apiUrl)
         .then(response => response.json())
         .then(data => {
-            if (data.length > 0) {
-                const latitude = data[0].lat;
-                const longitude = data[0].lon;
+            if (data.results && data.results.length > 0) {
+                const latitude = data.results[0].latitude;
+                const longitude = data.results[0].longitude;
                 getWeatherData(latitude, longitude);
                 saveSearch(city)
                 displayRecentSearches()
