@@ -56,7 +56,7 @@ h1 {
 
 #recentSearchesCard {
   
-  }  
+    }  
 
 .weather-card {
   margin: 0 0 20px 0;
@@ -100,6 +100,40 @@ h1 {
 
 #welcomeToVibesCast {
     font-style: italic;
+}
+
+#vibeResults {
+    padding: 20px;
+    background-color: #f8f8f8;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+#vibeResults h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    font-family: 'Helvetica Neue', sans-serif;
+    font-weight: bold;
+    color: #333;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+#vibeResults iframe {
+    width: 100%;
+    height: 380px; 
+    border: none;
+}
+
+#vibeResults p a {
+    color: #1db954;
+    text-decoration: none;
+}
+
+#vibeResults p a:hover {
+    text-decoration: underline;
 }
 
 /* Main Starts Here */

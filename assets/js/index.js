@@ -298,4 +298,3 @@ searchBtn.addEventListener('click', function() {
     });
 });
 
-
