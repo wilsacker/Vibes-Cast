@@ -1,127 +1,169 @@
-   <!DOCTYPE html>
-    <html lang="en">
-    
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>VibesCast</title>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
-        <link rel="stylesheet" href="assets/css/style.css">
-    </head>
-    
-    <body>
-        <nav class="navbar" role="navigation" aria-label="main navigation">
-            <div class="navbar-brand">
-                <a class="navbar-item" href="https://wilsacker.github.io/Vibes-Cast/">
-                    <h1 class="title">
-                        VibesCast🎧
-                    </h1>
-                </a>
-                <!-- Add an id to the navbar-burger -->
-                <a id="navbarBurger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
-                    <span aria-hidden="true"></span>
-                    <span aria-hidden="true"></span>
-                    <span aria-hidden="true"></span>
-                    <span aria-hidden="true"></span>
-                </a>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>VibesCast</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://wilsacker.github.io/Vibes-Cast/">
+                <h1 class="title">
+                    VibesCast🎧
+                </h1>
+            </a>
+            <a role="button" id="navbarBurger" class="navbar-burger" aria-label="menu" aria-expanded="false">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+        <!-- Div for the dropdown menu -->
+        <div id="dropdownMenu" class="navbar-menu">
+            <div class="navbar-start">
+                <!-- Dropdown menu items  -->
+                <button id="openModal" class="button" href="#">About Us</button>
             </div>
-            <!-- Add a div for the dropdown menu -->
-            <div id="dropdownMenu" class="navbar-menu">
-                <div class="navbar-start">
-                    <!-- Add your dropdown menu items here -->
-                    <a class="navbar-item" href="#">Option 1</a>
-                    <a class="navbar-item" href="#">Option 2</a>
-                    <a class="navbar-item" href="#">Option 3</a>
-                </div>
-            </div>
-        </nav>
-    <button id = "authorize">authorize</button>
-        <section class="section">
-            <div class="container">
-                <p class="subtitle">
-                    Playlist Recommendations For Your Weather Forecast 🤘
-                </p>
-                <div class="columns">
-                    <div class="column is-half">
-                        <div class="notification is-primary">
-                            <div class="field is-grouped">
-                                <p class="control is-expanded">
-                                  <!-- changed id to cityInput -->
-                                    <input class="input" type="text" placeholder="Search Location" id="cityInput">
-                                </p>
-                                <p class="control">
-                                    <button class="button is-info" id="searchButton">
-                                        Search
-                                    </button>
-                                </p>
-                            </div>
+        </div>
+    </nav>
+
+
+    <main class="section">
+        <div class="container">
+            <p class="subtitle" id="searchPrompt">
+                Playlist Recommendations For Your Weather Forecast 🤘
+            </p>
+            <div class="columns">
+                <div class="column" id="searchPanel">
+                    <!-- is half -->
+                    <div class="notification is-primary">
+                        <div class="field is-grouped">
+                            <p class="control is-expanded">
+                              <!-- changed id to cityInput -->
+                                <input class="input" type="text" placeholder="Search City" id="cityInput">
+                            </p>
+                            <p class="control">
+                                <button class="button is-info" id="searchButton">
+                                    Search
+                                </button>
+                            </p>
                         </div>
                     </div>
-                    <div class="column is-half">
-                      
-                        <nav class="panel" id="resultsPanel">
-                            <p class="panel-heading" type="text" placeholder="Search">Location Results</p>
-                            <p class="panel-tabs">
-                                <a id="vibeTab" class="is-active"  >Vibe</a>
-                                <a id= "forecastTab">Forecast</a>
-                            </p>
-                            <div id="weatherResults" class="is-hidden"></div>
-                              <a class="panel-block" id = "daily-0">
+                    <!-- local storage div -->
+                <div class="colomn hidden" id="recentSearchesCard">
+                    <section class="panel">
+                        <p class="panel-heading">Recent Searches</p>
+                        <div class="card-content" id="LocalStorage">
+                            <!-- Recent searches will be inserted here -->
+                        </div>
+                    </section>
+                </div>
+                </div>
+                <div class="column hidden" id="resultsPanel">
+                    <!-- is half -->
+                  <!-- changed id to weatherResults -->
+                    <section class="panel is-primary">
+                        <p class="panel-heading">Location Results</p>
+                        <p class="panel-tabs">
+                            <a id="forecastTab">Forecast</a>
+                            <a id="vibeTab">Vibe</a>
+                        </p>
+                        <div class="hidden" id=weatherResults>
+                           <!-- Weather panels will be inserted here -->
+                           
+                            <!-- <a class="panel-block">
                                 <span class="panel-icon">
-                                    <i class="fas fa-book" aria-hidden="true"></i>
+                                    <i class="fas fa-cloud" aria-hidden="true"></i>
                                 </span>
-                                Playlist Result option #1
-                              </a>
-                              <a class="panel-block" id = "daily-1">
+                                Weather Forecast option #1
+                            </a>
+                            <a class="panel-block">
                                 <span class="panel-icon">
-                                    <i class="fas fa-book" aria-hidden="true"></i>
+                                    <i class="fas fa-cloud" aria-hidden="true"></i>
                                 </span>
-                                Playlist Result option #2
-                              </a>
-                              <a class="panel-block" id = "daily-2">
+                                Weather Forecast option #2
+                            </a>
+                            <a class="panel-block">
                                 <span class="panel-icon">
-                                    <i class="fas fa-book" aria-hidden="true"></i>
+                                    <i class="fas fa-cloud" aria-hidden="true"></i>
                                 </span>
-                                Playlist Result option #3
-                              </a>
-                              <a class="panel-block" id = "daily-3">
+                                Weather Forecast option #3
+                            </a>
+                            <a class="panel-block">
                                 <span class="panel-icon">
-                                    <i class="fas fa-code-branch" aria-hidden="true"></i>
+                                    <i class="fas fa-cloud" aria-hidden="true"></i>
                                 </span>
-                                Playlist Result option #4
-                              </a>
-                              <a class="panel-block" id = "daily-4">
+                                Weather Forecast option #4
+                            </a>
+                            <a class="panel-block">
                                 <span class="panel-icon">
-                                    <i class="fas fa-code-branch" aria-hidden="true"></i>
+                                    <i class="fas fa-cloud" aria-hidden="true"></i>
                                 </span>
-                                Playlist Result option #5
-                              </a>
-                              <a class="panel-block" id = "daily-5">
+                                Weather Forecast option #5
+                            </a>
+                            <a class="panel-block">
                                 <span class="panel-icon">
-                                  <i class="fas fa-code-branch" aria-hidden="true"></i>
+                                    <i class="fas fa-cloud" aria-hidden="true"></i>
                                 </span>
-                              Playlist Result option #6
-                              </a>
-                              <a class="panel-block" id = "daily-6">
+                                Weather Forecast option #6
+                            </a>
+                            <a class="panel-block">
                                 <span class="panel-icon">
-                                  <i class="fas fa-code-branch" aria-hidden="true"></i>
+                                    <i class="fas fa-cloud" aria-hidden="true"></i>
                                 </span>
-                              Playlist Result option #7
-                              </a> 
-                            </div>            
-                            <div class="panel-blockgi">
-                                <button  class="button is-link is-outlined is-fullwidth">
-                                    Reset all filters
-                                </button>
-                            </div>
-                        </nav>
-                    </div>
+                                Weather Forecast option #7
+                            </a> -->
+                        </div>
+                        <div class="hidden" id="vibeResults">
+                            <h1>Spotify Songs</h1>
+                            <div id="songs"></div>
+                        </div>
+                        <div class="panel-block">
+                            <button class="button is-link is-outlined is-fullwidth" id="resetSearchButton">
+                                Reset Search
+                            </button>
+                        </div>
+                    </section>
                 </div>
             </div>
-        </section>
-    
-        <script src="./assets/js/index.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.10.7/dayjs.min.js"></script>
-    </body>
-    
-    </html>
+        </div>
+    </div>
+     <!-- Modal Code -->
+     <div class="modal" id="myModal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p class="modal-card-title">About Us</p>
+            <button id="closeModal" class="delete" aria-label="close"></button>
+            </header>
+            <section class="modal-card-body"> 
+                <!-- Content ... -->
+                <h1 id="welcomeToVibesCast" class="title">Hello, welcome to VibesCast!</h1>
+                <p class="modalText">First: Search A City</p>
+                <p class="modalText">Second: Check The Forecast</p>
+                <p class="modalText">Last: Pick a Playlist and Vibe!</p>
+                <p id="weHadFun">Welcome to VibesCast! We're a team of four friends with a shared passion for music, weather, and bringing a little extra joy to your daily routine. Our site combines the practical with the whimsical: offering you not just the weather forecast, but also the perfect playlist to match it.</p>
+                <p id="weHadFun">Ever found yourself wishing you had the ideal soundtrack for a rainy day, a sunny afternoon, or a snowy commute? We did too! That's why we created VibesCast. Whether you're gearing up for a jog in the park, bracing for a downpour, or simply looking for tunes to brighten a gloomy day, we've got you covered.</p>
+                <p id="weHadFun">Our goal is to make your daily journey a bit more enjoyable, no matter what the skies have in store. So, go ahead, search for your city, check the forecast, and discover the perfect playlist to complement your weather. Here's to good vibes and great music!</p>
+                <p id="weHadFun">Enjoy the ride with VibesCast!</p>
+            </section>
+            <footer class="modal-card-foot">
+             <div class="buttons">
+                <!-- <button class="button is-success">Save & Exit</button>
+                <button class="button">Close</button> -->
+            </div>
+        </footer>
+    </div>
+</main>
+
+
+    <script src="./assets/js/index.js"></script>
+</body>
+
+</html>

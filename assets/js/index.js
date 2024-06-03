@@ -1,133 +1,13 @@
-// Open-meteo Starting guide
+const vibeTab = document.getElementById('vibeTab');
+const forecastTab = document.getElementById('forecastTab');
+const vibeResults = document.getElementById('vibeResults');
+const forecastResults = document.getElementById('weatherResults');
+const recentSearches = document.getElementById('recentSearchesCard')
+const searchPrompt = document.getElementById('searchPrompt')
+const searchBtn = document.getElementById('searchButton')
+const resetSearchButton = document.getElementById('resetSearchButton');
 
-// https://api.open-meteo.com/v1/gfs?latitude=52.52&longitude=13.41&hourly=temperature_2m
-
-// Example Parameters Open-meteo guide
-// For the forecast endpoint, the following parameters can be used:
-
-// ●latitude: The latitude of the location.
-
-// ●longitude: The longitude of the location.
-
-// ●hourly: Comma-separated list of weather variables (e.g., temperature_2m, 
-// relative_humidity_2m, precipitation).
-
-// ●daily: Comma-separated list of daily weather variables (e.g., 
-// temperature_2m_max, temperature_2m_min, precipitation_sum).
-
-// ●current_weather: Set to true to include current weather data.
-
-// ●start_date: The start date of the forecast (e.g., 2024-05-22).
-
-// ●end_date: The end date of the forecast (e.g., 2024-05-22).
-
-// ●timezone: The timezone for the data (e.g., Europe/London)
-
-
-// Open-meteo api weather codes:
-// ●0: Clear sky
-// ●1: Mainly clear
-// ●2: Partly cloudy
-// ●3: Overcast
-// ●45: Fog
-// ●48: Depositing rime fog
-// ●51: Drizzle (light)
-// ●53: Drizzle (moderate)
-// ●55: Drizzle (dense intensity)
-// ●56: Freezing drizzle (light)
-// ●57: Freezing drizzle (dense intensity)
-// ●61: Rain (slight)
-// ●63: Rain (moderate)
-// ●65: Rain (heavy intensity)
-// ●66: Freezing rain (light)
-// ●67: Freezing rain (heavy intensity)
-// ●71: Snow fall (slight)
-// ●73: Snow fall (moderate)
-// ●75: Snow fall (heavy intensity)
-// ●77: Snow grains
-// ●80: Rain showers (slight)
-// ●81: Rain showers (moderate)
-// ●82: Rain showers (violent)
-// ●85: Snow showers (slight)
-// ●86: Snow showers (heavy)
-// ●95: Thunderstorm (slight or moderate)
-// ●96: Thunderstorm with slight hail
-// ●99: Thunderstorm with heavy hail
-
-// //we should pair music playlist : sunny, cloudy,rainy  from Spotify api with the Weather 
-// codes on open-meteo API
-
-
-// hourly: Comma-separated list of weather variables
-// 1. Temperature: temperature_2m
-// 2. Relative Humidity: relative_humidity_2m
-// 3. Dew Point: dewpoint_2m
-// 4. Apparent Temperature: apparent_temperature
-// 5. Precipitation: precipitation
-// 6. Rain: rain
-// 7. Showers: showers
-// 8. Snowfall: snowfall
-// 9. Freezing Rain: freezing_rain
-// 10.Weather Code: weathercode
-// 11.Pressure: surface_pressure
-// 12.Cloud Cover: cloudcover
-// 13.Cloud Cover Low: cloudcover_low
-// 14.Cloud Cover Mid: cloudcover_mid
-// 15.Cloud Cover High: cloudcover_high
-// 16.Wind Speed: windspeed_10m
-// 17.Wind Direction: winddirection_10m
-// 18.Wind Gusts: windgusts_10m
-// 19.Shortwave Radiation: shortwave_radiation
-// 20.Direct Radiation: direct_radiation
-// 21.Diffuse Radiation: diffuse_radiation
-// 22.Solar Radiation: solar_radiation
-// 23.UV Index: uv_index
-// 24.Evapotranspiration: et0_fao_evapotranspiration
-
-
-// daily: Comma-separated list of daily weather variables
-// 1. Maximum Temperature: temperature_2m_max
-// 2. Minimum Temperature: temperature_2m_min
-// 3. Apparent Temperature Max: apparent_temperature_max
-// 4. Apparent Temperature Min: apparent_temperature_min
-// 5. Precipitation Sum: precipitation_sum
-// 6. Rain Sum: rain_sum
-// 7. Showers Sum: showers_sum
-// 8. Snowfall Sum: snowfall_sum
-// 9. Precipitation Hours: precipitation_hours
-// 10.Weather Code: weathercode
-// 11.Sunrise: sunrise
-// 12.Sunset: sunset
-// 13.Windspeed 10m Max: windspeed_10m_max
-// 14.Windgusts 10m Max: windgusts_10m_max
-// 15.Winddirection 10m Dominant: winddirection_10m_dominant
-// 16.Shortwave Radiation Sum: shortwave_radiation_sum
-// 17.ET0 FAO Evapotranspiration: et0_fao_evapotranspiration
-
-
-// javaScript basic fetch for open-meteo:
-
-// const queryUrl = (`https://api.open-meteo.com/v1/forecast?forecast_days=16&timezone=auto&latitude=35&longitude=139&timezone=auto&latitude=48.864716&longitude=2.349014&hourly=temperature_2m,precipitation,rain&daily=weathercode&current_weather=true`);
-// function getApi(requestUrl) {
-//     fetch(requestUrl)
-//     .then(function (response){
-//         return response.json();
-//     })
-//     .then(function(data){
-//         console.log(data);
-//     });
-// }
-// getApi(queryUrl)
-
-// getApi(queryUrl)
-
-// event listener which collects the value inputed. cityName as a const to be sent as a parameter for the getCityCoordinates function.
-document.getElementById('searchButton').addEventListener('click', function () {
-    const cityName = document.getElementById('cityInput').value;
-    getCityCoordinates(cityName);
-});
-
-// this function is using  API to get latitudes and longitudes based on a city search. we get the const values lat,lon from the data.
+// this function is using  Nominatim API to get latitudes and longitudes based on a city search. we get the const values lat,lon from the data.
 function getCityCoordinates(city) {
     const apiUrl = `https://geocoding-api.open-meteo.com/v1/search?name=${city}`;
 
@@ -138,6 +18,8 @@ function getCityCoordinates(city) {
                 const latitude = data.results[0].latitude;
                 const longitude = data.results[0].longitude;
                 getWeatherData(latitude, longitude);
+                saveSearch(city)
+                displayRecentSearches()
             } else {
                 document.getElementById('weatherResults').innerHTML = 'City not found.';
             }
@@ -153,7 +35,7 @@ function getWeatherData(lat, lon) {
         .then(response => response.json())
         .then(data => {
             displayWeatherData(data);
-            console.log(data)
+            console.log("Weather Data: ", data)
         })
         .catch(error => console.error('Error fetching weather data:', error));
 
@@ -277,54 +159,108 @@ function displayWeatherData(data) {
         // const weatherIcon = getWeatherIcon(dayForecast.weathercode);
         weatherResults.appendChild(weatherCard);
     }
-    // Make the weather cards visible when data is loaded
-    weatherResults.classList.remove('is-hidden');
 }
 
-// Tab switching functionality
-document.getElementById('vibeTab').addEventListener('click', function () {
-    document.getElementById('vibeTab').classList.add('is-active');
-    document.getElementById('forecastTab').classList.remove('is-active');
-    document.getElementById('weatherResults').classList.add('is-hidden');
-});
 
-document.getElementById('forecastTab').addEventListener('click', function () {
-    document.getElementById('forecastTab').classList.add('is-active');
-    document.getElementById('vibeTab').classList.remove('is-active');
-    document.getElementById('weatherResults').classList.remove('is-hidden');
-});
+// Function to save search to local storage
+function saveSearch(city) {
+    let searches = JSON.parse(localStorage.getItem('recentSearches')) || [];
+    if (!searches.includes(city)) {
+        searches.unshift(city); // Add new search to the beginning
+    }
+    // Keep only the latest 5 searches
+    if (searches.length > 5) {
+        searches = searches.slice(0, 5);
+    }
+    localStorage.setItem('recentSearches', JSON.stringify(searches));
+}
 
-//  
+// Function to display recent searches
+function displayRecentSearches() {
+    const localStorageDiv = document.getElementById('LocalStorage');
+    localStorageDiv.innerHTML = '';
 
-// localStorage.setItem('cityWeather', JSON.stringify(data.daily));
-//     }
-// }
+    let searches = JSON.parse(localStorage.getItem('recentSearches')) || [];
+    
+    // Reverse the searches array to show latest first
+    searches.forEach(city => {
+        const searchItem = document.createElement('a');
+        searchItem.className = 'panel-block';
+        searchItem.innerHTML = `
+            <span class="panel-icon">
+                <i class="fas fa-search" aria-hidden="true"></i>
+            </span>${city}`;
+        searchItem.addEventListener('click', () => {
+            document.getElementById('cityInput').value = city;
+            getCityCoordinates(city);
+        });
+        localStorageDiv.appendChild(searchItem);
+    });
+}
 
 
+//Spotify Api
+async function getAccessToken(clientId, clientSecret) {
+    const result = await fetch('https://accounts.spotify.com/api/token', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Authorization': 'Basic ' + btoa(clientId + ':' + clientSecret)
+        },
+        body: 'grant_type=client_credentials'
+    });
+
+    const data = await result.json();
+    return data.access_token;
+}
+
+async function getJazzSongs(accessToken) {
+    const result = await fetch(`https://api.spotify.com/v1/search?q=genre:jazz&type=track&limit=5`, {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + accessToken
+        }
+    });
+
+    const data = await result.json();
+    return data.tracks.items;
+}
+
+async function main(weatherCode) {
+    const clientId = '85aa1b8ce49b49eb87d1cfe0ba9b3f96';
+    const clientSecret = '2dd9402bc04447cd917e5c5f513603a3';
+
+    try {
+        const accessToken = await getAccessToken(clientId, clientSecret);
+        const jazzSongs = await getJazzSongs(accessToken);
+
+        // Display the list of jazz songs
+        const songsContainer = document.getElementById('songs');
+        jazzSongs.forEach((song, index) => {
+            const songDiv = document.createElement('div');
+            songDiv.innerHTML = `
+                <h2>${index + 1}. ${song.name} by ${song.artists[0].name}</h2>
+                <iframe src="https://open.spotify.com/embed/track/${song.id}" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+                <p><a href="${song.external_urls.spotify}" target="_blank">Listen on Spotify</a></p>
+            `;
+            songsContainer.appendChild(songDiv);
+        });
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+main();
 
 
+//================================================================================
+//================================================================================
+//================================================================================
 
-// const weatherCodes = {
-//     0: "Clear sky",
-//     1: "Mainly clear",
-//     2: "Partly cloudy",
-//     3: "Overcast",
-//     61: "Rain Light",
-//     63: "Rain mid",
-//     65: "Rain heavy",
-// Add more weather codes as needed
-// };
 
-// function getParams() {
-// Get the search params out of the URL (i.e. `?q=london&format=photo`) and convert it to an array (i.e. ['?q=london', 'format=photo'])
-// const searchParamsArr = document.location.forecast.split('&');
+// ALL EVENT LISTENERS
 
-// Get the query and format values
-//     const query = searchParamsArr[0].split('=').pop();
-//     const format = searchParamsArr[1].split('=').pop();
-
-//     searchApi(query, format);
-//   }
+// Nav-burger click event listener
 
 document.addEventListener('DOMContentLoaded', function () {
     // Get the navbar burger element
@@ -339,76 +275,89 @@ document.addEventListener('DOMContentLoaded', function () {
         navbarBurger.classList.toggle('is-active');
         dropdownMenu.classList.toggle('is-active');
     });
+
+    // Results tabs for Vibe and Forecast
+    vibeTab.addEventListener('click', () => {
+        vibeResults.classList.remove('hidden');
+        vibeTab.classList.add('is-active');
+        forecastResults.classList.add('hidden');
+        forecastTab.classList.remove('is-active');
+    });
+
+    forecastTab.addEventListener('click', () => {
+        forecastResults.classList.remove('hidden');
+        forecastTab.classList.add('is-active');
+        vibeResults.classList.add('hidden');
+        vibeTab.classList.remove('is-active');
+    });
+
+    // Event listener for reset search button
+    if (resetSearchButton) {
+        resetSearchButton.addEventListener('click', () => {
+            window.location.href = 'https://wilsacker.github.io/Vibes-Cast/';
+        });
+    }
+
 });
 
-// ========
 
-const requestSpotifyAccess = () => {
-    const params = new URLSearchParams({
-        response_type: "token",
-        client_id: "85aa1b8ce49b49eb87d1cfe0ba9b3f96",
-        scope: 'user-read-private user-read-email',// Example scopes, add other scopes as needed
-        redirect_uri: location.protocol + "//" + location.host + location.pathname,
-    })
-    const url = "https://accounts.spotify.com/authorize?" + params
-    location.href = url
-}
-let auth = Object.fromEntries(new URLSearchParams(location.hash.substring(1)).entries())
-if (auth.access_token) {
-    location.hash = ""
-    localStorage.setItem("spotify_access_token", auth.access_token)
-}
-const access_token = localStorage.getItem("spotify_access_token")
-if (access_token) {
-    document.querySelector("#authorize").hidden = true
-    // you are authorized
-    getSpotifyData("pop")   // forecast says sunny == 'pop'  --> user inputs a city for a forecast --> rainy == "jazz"
-} else {
-    // you need to request token
-    document.querySelector("#authorize").addEventListener("click", requestSpotifyAccess)
-}
-console.log(auth)
-//async function getProfile(accessToken) {
+// Search City
+searchBtn.addEventListener('click', function() {
+    const cityName = document.getElementById('cityInput').value;
+    getCityCoordinates(cityName);
+    const searchLocation = document.getElementById(`searchPanel`);
+    const panelLocation = document.getElementById(`resultsPanel`);
+    panelLocation.classList.remove("hidden");
+    panelLocation.classList.add("is-half");
+    searchLocation.classList.add("is-half");
+    forecastResults.classList.remove('hidden');
+    vibeResults.classList.add('hidden')
+    forecastTab.classList.add('is-active');
+    vibeTab.classList.remove('is-active');
+    recentSearches.classList.remove(`hidden`);
+    searchPrompt.classList.add('hidden');
+});
 
 
-async function getSpotifyData(searchTerm) {
-    let accessToken = localStorage.getItem('spotify_access_token');
-    // const response = await fetch('https://api.spotify.com/v1/browse/new-releases?limit=5', {
-    // const response = await fetch('https://api.spotify.com/v1/recommendations/available-genre-seeds', {
-    const response = await fetch(`https://api.spotify.com/v1/search?q=${searchTerm}&type=playlist`, {
-        headers: {
-            Authorization: 'Bearer ' + accessToken
-        }
-    });
-    const data = await response.json();
-    console.log("Data: ", data);
-    let playlistId = data.playlists.items[0].id
-    console.log('ID: ', playlistId)
-    const playlistResponse = await fetch(`https://api.spotify.com/v1/playlists/${playlistId}`, {
-        headers: {
-            Authorization: 'Bearer ' + accessToken
-        }
-    });
-    const playlistData = await playlistResponse.json();
-    console.log("Playlist Data: ", playlistData);
-}
-const getRefreshToken = async () => {
-    // refresh token that has been previously stored
-    const refreshToken = localStorage.getItem('refresh_token');
-    const url = "https://accounts.spotify.com/api/token";
-    const payload = {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: new URLSearchParams({
-            grant_type: 'refresh_token',
-            refresh_token: refreshToken,
-            client_id: clientId
-        }),
+
+    // Panel tabs functionality
+    const panelTabs = document.getElementsByClassName('panel-tabs')[0].getElementsByTagName('a');
+    for (let i = 0; i < panelTabs.length; i++) {
+        panelTabs[i].addEventListener('click', () => {
+            for (let j = 0; j < panelTabs.length; j++) {
+                panelTabs[j].classList.remove('is-active');
+            }
+            panelTabs[i].classList.add('is-active');
+
+            if (panelTabs[i].id === 'forecastTab') {
+                document.getElementById('weatherResults').classList.remove('hidden');
+                document.getElementById('vibeResults').classList.add('hidden');
+            } else if (panelTabs[i].id === 'vibeTab') {
+                document.getElementById('vibeResults').classList.remove('hidden');
+                document.getElementById('weatherResults').classList.add('hidden');
+            }
+        });
     }
-    const body = await fetch(url, payload);
-    const response = await body.json();
-    localStorage.setItem('access_token', response.accessToken);
-    localStorage.setItem('refresh_token', response.refreshToken);
-}
+    // Modal Listener Event
+    document.addEventListener('DOMContentLoaded', () => {
+        const modal = document.getElementById('myModal');
+        const openModalButton = document.getElementById('openModal');
+        const closeModalButtons = modal.querySelectorAll('.delete, .button');
+
+        openModalButton.addEventListener('click', () => {
+            modal.classList.add('is-active');
+        });
+
+        closeModalButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                modal.classList.remove('is-active');
+            });
+        });
+
+    // Close modal when clicking on the modal background
+    modal.querySelector('.modal-background').addEventListener('click', () => {
+        modal.classList.remove('is-active');
+    });
+});
+
+
