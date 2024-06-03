@@ -15,12 +15,12 @@
 4. Create Spotify API
 5. Create a function to connect both the Spotify and Weather API
 
-## Usage
+## Screenshot
 
-[#Screenshot 1](https://github.com/wilsacker/Vibes-Cast/blob/main/assets/images/Screenshot%202024-06-03%20at%2015.21.37.png)
-[#Screenshot 2](/assets/images/Screenshot%202024-06-03%20at%2015.21.46.png)
-[#Screenshot 3](/assets/images/Screenshot%202024-06-03%20at%2015.22.02.png)
-[#Screenshot 4](/assets/images/Screenshot%202024-06-03%20at%2015.22.08.png)
+![Home](/assets/images/Screenshot%202024-06-03%20at%2015.21.37.png)
+![Modal](/assets/images/Screenshot%202024-06-03%20at%2015.21.46.png)
+![Forecast Results](/assets/images/Screenshot%202024-06-03%20at%2015.22.02.png)
+![Vibe Results](/assets/images/Screenshot%202024-06-03%20at%2015.22.08.png)
 
 ## Credits
 
