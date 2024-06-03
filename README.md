@@ -1,4 +1,4 @@
-# Stellar-Sounds-Forecast
+# Vibes-Cast
 
 ## Description
 
@@ -15,11 +15,12 @@
 4. Create Spotify API
 5. Create a function to connect both the Spotify and Weather API
 
-## Usage
+## Screenshot
 
-[Vibes-Cast demo](./assets/images/Screenshot%20project.png)
-[Vibes-Cast demo](./assets/images/Screenshot%20project%202.png)
-[Vibes-Cast demo](./assets/images/Screenshot%20project%203.png)
+![Home](/assets/images/Screenshot%202024-06-03%20at%2015.21.37.png)
+![Modal](/assets/images/Screenshot%202024-06-03%20at%2015.21.46.png)
+![Forecast Results](/assets/images/Screenshot%202024-06-03%20at%2015.22.02.png)
+![Vibe Results](/assets/images/Screenshot%202024-06-03%20at%2015.22.08.png)
 
 ## Credits
 
