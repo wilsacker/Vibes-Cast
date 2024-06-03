@@ -4,13 +4,20 @@
 }  */
 
 /* Nav Starts Here */
-
+:root{
+    --light:#F5f5f5;
+    --dark:#343434;
+    --bulma: #9d55a5;
+    --vegeta:#03D1B2;
+    --piccolo:#63c05e;
+    --pad: 10px 10px 10px 10px;
+}
 .navbar-burger
 
 
 .title {
     border: 25px;
-    padding: 10px 10px 10px 10px;
+    padding: var(--pad);
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -22,25 +29,25 @@
 }
 
 button:hover {
-    background-color: #63c05e;
-    color: #9d55a5;
+    background-color: var(--piccolo);
+    color: var(--bulma);
   }
   
 
   button:active {
-    box-shadow:10px 5px 5px   #9d55a5;
+    box-shadow:10px 5px 5px   var(--bulma);
   }
 
 #openModal {
     border: 50px;
-    padding: 10px 10px 10px 10px;
-    margin: 10px 10px 10px 10px;
+    padding: var(--pad);
+    margin: var(--pad);
     flex-wrap: auto;
     justify-content: space-between;
 }  
 
 #openModal :hover {
-    background-color: #03D1B2;
+    background-color: var(--vegeta);
 }
 
 h1 {
@@ -56,14 +63,14 @@ h1 {
   border: 3px solid black;
   border-radius: 5%;
   background-color: #343434;
-  color: whitesmoke;
+  color: #F5f5f5;
   display: flex;
   justify-content:space-evenly;
 
 }
 
 .weather-card:hover{
-    background-color: #03D1B2;
+    background-color: var(--vegeta);
 }
 
 .hidden {
