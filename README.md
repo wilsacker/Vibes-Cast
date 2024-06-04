@@ -2,18 +2,31 @@
 
 ## Description
 
-- Our motivation is to give users songs to listen to based on the weather for enjoyment purposes and relaxation before their day starts
-- The interest to develop a Weather app was to have tackle mental health and give users something to look forward
-- We solved problems on how to write two API`s into a website and how to connect the API's in Javascript
-- We learned that how certain API`s like Spotify have an authorization code and what it takes to run a website for the everday person 
+- Our goal for this project was to create a site which provides a playlist and weather forecast that match each other (i.e. cold/rainy day = sad music, hot/sunny day = happy music)
+- Overall, we were able to achieve functionality of our primary goal, with a few limitations, despite inherent issues with using Spotify (an 0Auth API)
 
 ## Installation
 
-1. Create a HTML to set up the website
-2. Create a CSS to adjust the weather cards, search bar and song playlist
-3. Create Weather API
-4. Create Spotify API
-5. Create a function to connect both the Spotify and Weather API
+- Used Bulma for general HTML infrastructure and adjusted it to accomplish our ideal site design (based on wireframe):
+    - Nav (clickable home page button)
+    - Search bar
+    - colomns (for site organization)
+    - Modal
+    - Local Storage Panel
+    - Results Panel with tabs for forecast and vibe
+    - Footer
+- Used Javascript to add multiple core functionalities:
+    - Buttons
+    - Search bar
+    - Results panel
+    - Hiding and un-hiding HTML based on event listeners
+    - Modal
+    - etc.
+- Set up weather API in Javascript to return results based on locational data (lat, lon)
+- integrated weather API into the forecast tab within the results panel
+- Set up spotify API to return songs
+- Set up spotify to return playlist based on the weather conditions of the specified location (based on the weather api returns)
+- Generally cleaned up site repo to match criteria
 
 ## Screenshot
 
@@ -22,20 +35,20 @@
 ![Forecast Results](/assets/images/Screenshot%202024-06-03%20at%2015.22.02.png)
 ![Vibe Results](/assets/images/Screenshot%202024-06-03%20at%2015.22.08.png)
 
+## Link to deployed website: https://wilsacker.github.io/Vibes-Cast/
+
+## Github Repo Link: https://github.com/wilsacker/Vibes-Cast
+
 ## Credits
 
 Collaborators:
-1. https://github.com/AhmedGarcia
-2. https://github.com/Lennymv
-3. https://github.com/wilsacker
+1. https://github.com/wilsacker
+2. https://github.com/AhmedGarcia
+3. https://github.com/Lennymv
 4. https://github.com/sickcurse
 
-Conducted searches in Google.com, https://www.w3schools.com/, utilized ChatGPT, https://developer.spotify.com/documentation/web-ap to understand concepts.
+Used Bulma, https://bulma.io/, Conducted searches in Google.com, https://www.w3schools.com/, utilized ChatGPT, https://developer.spotify.com/documentation/web-ap to understand concepts and build site.
 
 ## Licensed
 
 © 2024 Vibes-Cast, LLC, a 2U, Inc. brand. Confidential and Proprietary. All Rights Reserved.
-
-## Features
-
-The website consists of a search bar so the user can write their location and what the weather is going to be for today. Underneath is the toolbar for the recent searches the user wrote. After writing down the loction, to the side is a table that demonstrates the date, max/min temperature,and time for sunrise and sunset. Additionally, it should give the user a selection of songs once the user clicks vibe.
