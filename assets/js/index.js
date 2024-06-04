@@ -86,7 +86,7 @@ async function fetchSpotifyData(genre) {
     try {
         // 'embed' is used to embed Spotify playlists (or other Spotify content) into web pages. Embedding allows you to include a Spotify player directly within your web page, providing a convenient way for users to listen to the playlist without leaving your site
         const accessToken = await getAccessToken(clientId, clientSecret);
-        const result = await fetch(`https://api.spotify.com/v1/search?q=genre:${genre}&type=playlist&limit=1`, { 
+        const result = await fetch(`https://api.spotify.com/v1/search?q=genre:${genre}&type=playlist&limit=1`, {
             method: 'GET',
             headers: {
                 'Authorization': 'Bearer ' + accessToken
