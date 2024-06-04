@@ -81,6 +81,7 @@ h1 {
 
 .modalText {
     padding: 2%;
+    font-style: italic;
 }
 
 #weHadFun {
@@ -89,11 +90,12 @@ h1 {
 }
 
 #welcomeToVibesCast {
-    font-style: italic;
+    /* font-style: italic; */
     text-align: center;
     width: 100%;
     margin: 0;
     font-size: 2em;
+    padding-bottom: 3%;
 }
 
 #vibeResults {
