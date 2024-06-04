@@ -7,7 +7,7 @@ const searchPrompt = document.getElementById('searchPrompt')
 const searchBtn = document.getElementById('searchButton')
 const resetSearchButton = document.getElementById('resetSearchButton');
 
-// this function is using  Nominatim API to get latitudes and longitudes based on a city search. we get the const values lat,lon from the data.
+// this function is using  the geocoding api from open-meteo to get latitudes and longitudes based on a city search. we get the const values lat,lon from the data.
 function getCityCoordinates(city) {
     const apiUrl = `https://geocoding-api.open-meteo.com/v1/search?name=${city}`;
 
@@ -21,7 +21,7 @@ function getCityCoordinates(city) {
                 saveSearch(city)
                 displayRecentSearches()
             } else {
-                document.getElementById('weatherResults').innerHTML = 'City not found.';
+                forecastResults.innerHTML = 'City not found.';
             }
         })
         .catch(error => console.error('Error fetching city coordinates:', error));
@@ -84,8 +84,9 @@ async function fetchSpotifyData(genre) {
     const clientSecret = '2dd9402bc04447cd917e5c5f513603a3';
 
     try {
+        // 'embed' is used to embed Spotify playlists (or other Spotify content) into web pages. Embedding allows you to include a Spotify player directly within your web page, providing a convenient way for users to listen to the playlist without leaving your site
         const accessToken = await getAccessToken(clientId, clientSecret);
-        const result = await fetch(`https://api.spotify.com/v1/search?q=genre:${genre}&type=playlist&limit=1`, {
+        const result = await fetch(`https://api.spotify.com/v1/search?q=genre:${genre}&type=playlist&limit=1`, { 
             method: 'GET',
             headers: {
                 'Authorization': 'Bearer ' + accessToken
@@ -122,10 +123,6 @@ function displaySpotifyPlaylist(playlist) {
 // Calls fetchSpotifyData to get Spotify playlists based on the genre for each day's weather.
 function displayWeatherData(data) {
     forecastResults.innerHTML = '';
-
-    // Local storage for the 'daily' values
-    localStorage.setItem('cityWeather', JSON.stringify(data));
-
     const daily = data.daily;
 
     for (let i = 0; i < daily.time.length; i++) {
